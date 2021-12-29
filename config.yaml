@@ -2,7 +2,7 @@ baseurl: https://ingvarlistard.github.io
 languageCode: ru-ru
 theme: hugo-theme-stack
 paginate: 5
-title: Dev Blog
+title: Handy Code
 
 # Change it to your Disqus shortname before using
 disqusShortname: hugo-theme-stack
