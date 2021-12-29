@@ -106,7 +106,7 @@ django-admin createapp backend
 
 ### Настройка
 
-#### **Перенос manage.py**
+#### Перенос manage.py
 
 Так как фронтенд и бэкенд нашего todo-листа будет находиться в одной  директории, было бы неплохо иметь все управляющие файлы в корневой  директории проекта. В Django управляющим файлом является `manage.py`, давайте вынесем его из директории `backend` на уровень повыше. 
 
@@ -136,7 +136,7 @@ ROOT_URLCONF = 'backend.backend.urls'
 WSGI_APPLICATION = 'backend.backend.wsgi.application'
 ```
 
-#### **Добавление graphene_django**
+#### Добавление graphene_django
 
 В файле `backend/backend/settings.py` в переменную `INSTALLED_APPS` добавляем установленный ранее `graphene_django`:
 
@@ -149,7 +149,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-#### **Проверяем работоспособность**
+#### Проверяем работоспособность
 
 ```sh
 python manage.py runserver
@@ -159,15 +159,15 @@ python manage.py runserver
 
 
 
-{{< detail-tag "**Django hello**" `
+{{< details "**Django hello**" >}}
 
 ![Django hello](hhb-rytssx5jg9nspydgu6lwenc.png)
 
-` >}}
+{{< /details >}}
 
 
 
-#### **Настройка graphene**
+#### Настройка graphene
 
 После изменений ниже `http://localhost:8000/` уже не будет встречать нас ракетой. В файле `backend/backend/urls.py`
 
@@ -210,11 +210,11 @@ python manage.py runserver
 
 и переходим на http://localhost:8000/graphql/. Там нас должна встретить та самая мини "IDE" [GrapiQL](https://github.com/graphql/graphiql):
 
-{{< detail-tag "**Graphiql IDE**" `
+{{< details "**Graphiql IDE**" >}}
 
 ![Graphiql ide](ptjbnvouc67igph8iswnrys656g.png)
 
-` >}}
+{{< /details >}}
 
 Ничего страшного в том, что нас встречает ошибка. Она появляется  из-за того, что наша схема пуста. Мы исправим это при реализации дальше.
 
@@ -224,7 +224,7 @@ python manage.py runserver
 
 
 
-#### **Создание приложения**
+#### Создание приложения
 
 Создадим приложение todo_list и модели к нему. Не забывайте, что все команды должны выполняться внутри окружения pipenv:
 
@@ -254,6 +254,8 @@ INSTALLED_APPS = [
 ```
 
 Добавим модели `Todo` и `Category` в файл `backend/todo_list/models.py`:
+
+{{< details "**models.py**" >}}
 ```python
 # backend/todo_list/models.py
 from datetime import timedelta
@@ -290,12 +292,13 @@ class Todo(models.Model):
     def __str__(self):
         return self.title
 ```
+{{< /details >}}
 
 Для того, чтобы наши модели превратились в таблицы в БД, нужно выполнить следующее: 
 
 Создать файлы [миграций](https://djbook.ru/rel1.7/topics/migrations.html), в которых будет описываться наша текущая схема:
 
-```
+```sh
 python manage.py makemigrations
 ```
 
@@ -305,19 +308,21 @@ python manage.py makemigrations
 
 Применить эти миграции командой `migrate`. Т.к. это первый запуск скрипта `migrate`, у нас также будут применяться миграции приложений Django:
 
-```
+```sh
 python manage.py migrate
 ```
 
-{{< detail-tag "**Вывод консоли**" `
+{{< details "**Вывод консоли**" >}}
 
 ![Вывод консоли](sscryoufym2z282jrfldthrscjw.png)
 
-` >}}
+{{< /details >}}
 
-#### **Создание GraphQL API**
+#### Создание GraphQL API
 
 Опишем [типы](https://xsltdev.ru/react/graphql/schemas-and-types/), [создадим запросы и мутации](https://xsltdev.ru/react/graphql/queries-and-mutations/) для наших новых моделей. Для этого в директории приложения `todo_list` создадим файл `schema.py`, со следующим содержимым:
+
+{{< details "**schema.py**" >}}
 
 ```python
 # backend/todo_list/schema.py
@@ -381,6 +386,8 @@ class Mutation(graphene.ObjectType):
         return todo
 ```
 
+{{< /details >}}
+
 После создания классов мутации и запроса, их нужно добавить в нашу схему. Как вы, возможно, помните схему мы описывали в файле `api.py`:
 
 ```python
@@ -394,7 +401,7 @@ schema = graphene.Schema(query=Query, mutation=Mutation)
 
 
 
-#### **Проверка API**
+#### Проверка API
 
 ID записей в примерах ниже могут различаться с ID ваших записей.
 
@@ -408,7 +415,9 @@ python manage.py runserver
 
 Давайте проверим получившиеся запросы и мутации.
 
-**Запрос addTodo**
+{{< details "**addTodo**" >}}
+
+**Мутация**
 
 ```graphql
   mutation(
@@ -454,12 +463,16 @@ python manage.py runserver
 
 ![Результат](ygwilohcsxhxvwn0x65lk661nt0.png)
 
+{{< /details >}}
+
 В результате этой мутации у нас создалось две записи:
 
 - `Todo` т.к. собственно мутация для этого и написана;
 - `Category`, т.к. в базе не оказалось категорий с названием "Работа", а метод `get_or_create` говорит за себя сам.
 
-**Запрос todoList и categories**
+{{< details "**todoList и categories**" >}}
+
+**Запрос**
 
 ```graphql
 {
@@ -485,7 +498,11 @@ category {
 
 ![Результат](vua6horn_mwn6fvz2souvalge7e.png)
 
-**Мутация toggleTodo**
+{{< /details >}}
+
+{{< details "**toggleTodo**" >}}
+
+**Мутация**
 
 ```graphql
 mutation ($todoId: ID) {
@@ -516,7 +533,11 @@ mutation ($todoId: ID) {
 
 ![Результат](oangcw2rkfy2clb-sgjfgbrghzw.png)
 
-**Мутация removeTodo**
+{{< /details >}}
+
+{{< details "**removeTodo**" >}}
+
+**Мутация**
 
 ```graphql
 mutation ($todoId: ID) {
@@ -524,11 +545,13 @@ mutation ($todoId: ID) {
 }
 ```
 
-**Переменные** можно оставить из предыдущей мутации.
+Переменные можно оставить из предыдущей мутации.
 
 **Результат**
 
 ![Результат](xovn268dblwy2d4gp97ahgnve6s.png)
+
+{{< /details >}}
 
 ## Nuxt
 
@@ -555,11 +578,11 @@ npm run dev
 
 и перейдем на http://localhost:3000. Там нас должна ждать страница приветствия Nuxt + Vuetify:
 
-{{< detail-tag "**Nuxt + Vuetify**" `
+{{< details "**Nuxt + Vuetify**" >}}
 
 ![Nuxt + Vuetify](oimeo_qzmt-juuzhixs20put1cy.png)
 
-` >}}
+{{< /details >}}
 
 ### Перенос конфигурационных файлов
 
@@ -618,6 +641,8 @@ npm run dev
 
 
 Создадим компонент нового `Todo` по пути `frontend/components/NewTodoForm.vue`:
+
+{{< details "**NewTodoForm.vue**" >}}
 
 ```vue
 <!-- frontend/components/NewTodoForm.vue -->
@@ -745,7 +770,11 @@ export default {
 </script>
 ```
 
+{{< /details >}}
+
 Далее компонент существующего `Todo`, там же:
+
+{{< details "**TodoItem.vue**" >}}
 
 ```vue
 <!-- frontend/components/TodoItem.vue -->
@@ -808,7 +837,11 @@ export default {
 </script>
 ```
 
+{{< /details >}}
+
 И наконец вставим новые компоненты в `index.vue`, и добавим в него немного рыбы:
+
+{{< details "**index.vue**" >}}
 
 ```vue
 <!-- frontend/pages/index.vue -->
@@ -917,13 +950,15 @@ export default {
 </script>
 ```
 
+{{< /details >}}
+
 После проделанной работы рекомендую проверить работоспособность получившегося макета. Запустите `dev` сервер и перейдите на http://localhost:3000/, там вы должны увидеть следующую картину:
 
-{{< detail-tag "**Функциональный макет**" `
+{{< details "**Функциональный макет**" >}}
 
 ![Nuxt + Vuetify](gsg0plu-vg6tllgm1gvgfcot9oi.png)
 
-` >}}
+{{< /details >}}
 
 ## Объединение фронтенда и бэкенда
 
@@ -942,6 +977,8 @@ CSRF-токен в классическом django приложении прих
 Я поступил следующим образом: немного расширил логику стандартного `CsrfViewMiddleware` таким образом, чтобы он проверял тип GraphQL запроса, и уже на основе этого принимал или сбрасывал соединение.
 
 Для этого добавим кастомную проверку CSRF, например, в уже знакомый нам файл `api.py`
+
+{{< details "**api.py**" >}}
 
 ```python
 # backend/backend/api.py
@@ -981,6 +1018,8 @@ class CustomCsrfMiddleware(CsrfViewMiddleware):
                 return self._accept(request)
         return super(CustomCsrfMiddleware, self).process_view(request, callback, callback_args, callback_kwargs)
 ```
+
+{{< /details >}}
 
 Далее, в файле `settings.py` нужно заменить "оригинальный" `CsrfViewMiddleware`, на кастомный:
 
@@ -1064,6 +1103,8 @@ export default {
 
 Конфигурируем клиент `Apollo`, а вместе с тем формируем цепочку обработчиков запросов.
 
+{{< details "**apollo-client.js**" >}}
+
 ```js
 // frontend/plugins/apollo-client.js
 import { HttpLink } from 'apollo-link-http'
@@ -1122,6 +1163,8 @@ export default ctx => {
 }
 ```
 
+{{< /details >}}
+
 На этом этапе лучше еще раз удостовериться, что Nuxt собирается без ошибок, запустив dev сервер.
 
 ### Оживляем приложение
@@ -1129,6 +1172,8 @@ export default ctx => {
 И вот наконец настало время соединить фронт и бэк.
 
 Для начала где-нибудь создадим файл, в котором будут храниться все  запросы и мутации к бэкенду. В моем случае этот файл расположился по  пути `frontend/graphql.js` с уже знакомым нам содержимым:
+
+{{< details "**graphql.js**" >}}
 
 ```js
 import gql from 'graphql-tag'
@@ -1206,9 +1251,13 @@ const REMOVE_TODO = gql`
 export { ADD_TODO, TOGGLE_TODO, GET_CATEGORIES, GET_TODO_LIST, REMOVE_TODO }
 ```
 
+{{< /details >}}
+
 Теперь нужно немного изменить уже существующий функционал фронтенда.  Наконец пришло время добавить туда взаимодействие с бэкендом.
 
 Изменим Vue компоненты:
+
+{{< details "**index.vue**" >}}
 
 ```vue
 <!-- frontend/pages/index.vue -->
@@ -1246,6 +1295,10 @@ export default {
 }
 </script>
 ```
+
+{{< /details >}}
+
+{{< details "**NewTodoForm.vue**" >}}
 
 ```vue
 <!-- frontend/components/NewTodoForm.vue -->
@@ -1349,180 +1402,113 @@ export default {
 </script>
 ```
 
+{{< /details >}}
+
+{{< details "**TodoItem.vue**" >}}
+
 ```vue
-<!-- frontend/components/NewTodoForm.vue -->
+<!-- frontend/components/TodoItem.vue -->
 <template>
-  <v-form ref="form" v-model="valid">
-    <v-card>
-      <v-card-text class="pt-0 mt-0">
-        <v-layout row wrap>
-          <v-flex xs8>
-            <v-text-field
-              v-model="newTodo.title"
-              :rules="[nonEmptyField]"
-              label="Задача"
-              prepend-icon="check_circle_outline"
-            />
-          </v-flex>
-          <v-flex xs4>
-            <v-menu
-              ref="menu"
-              v-model="menu"
-              :close-on-content-click="false"
-              :nudge-right="40"
-              :return-value.sync="newTodo.dueDate"
-              lazy
-              transition="scale-transition"
-              offset-y
-              full-width
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <v-text-field
-                  v-model="newTodo.dueDate"
-                  :rules="[nonEmptyField]"
-                  v-on="on"
-                  label="Дата выполнения"
-                  prepend-icon="event"
-                  readonly
-                />
-              </template>
-              <v-date-picker
-                v-model="newTodo.dueDate"
-                no-title
-                scrollable
-                locale="ru-ru"
-                first-day-of-week="1"
-              >
-                <v-spacer />
-                <v-btn @click="menu = false" flat color="primary">Отмена</v-btn>
-                <v-btn
-                  @click="$refs.menu.save(newTodo.dueDate)"
-                  flat
-                  color="primary"
-                  >Выбрать</v-btn
-                >
-              </v-date-picker>
-            </v-menu>
-          </v-flex>
-          <v-flex xs12>
-            <v-textarea
-              v-model="newTodo.text"
-              :rules="[nonEmptyField]"
-              label="Описание"
-              prepend-icon="description"
+  <v-card>
+    <v-card-title class="pb-1" style="overflow-wrap: break-word;">
+      <b>{{ todo.title }}</b>
+      <v-spacer />
+      <!-- Изменено событие -->
+      <v-btn
+        @click="remove"
+        flat
+        small
+        icon
+        style="position: absolute; right: 0; top: 0"
+      >
+        <v-icon :disabled="$nuxt.isServer" small>close</v-icon>
+      </v-btn>
+    </v-card-title>
+    <v-card-text class="py-1">
+      <v-layout row justyfy-center align-center>
+        <v-flex xs11 style="overflow-wrap: break-word;">
+          {{ todo.text }}
+        </v-flex>
+        <v-flex xs1>
+          <div style="text-align: right;">
+            <!-- Добавлена обработка клика -->
+            <v-checkbox
+              :value="todo.done"
+              @click.once="toggle"
               hide-details
-              rows="1"
-              class="py-0 my-0"
+              class="pa-0 ma-0"
+              style="display: inline-block;"
+              color="green lighten-1"
             />
-          </v-flex>
-        </v-layout>
-      </v-card-text>
-      <v-card-actions>
-        <v-combobox
-          v-model="newTodo.category"
-          :rules="[nonEmptyField]"
-          :items="categories"
-          hide-details
-          label="Категория"
-          class="my-0 mx-2 mb-2 pt-0"
-          prepend-icon="category"
-        />
-        <v-spacer />
-        <v-btn
-          :disabled="!valid"
-          :loading="loading"
-          @click="add"
-          color="blue lighten-1"
-          flat
-          >Добавить</v-btn
-        >
-      </v-card-actions>
-    </v-card>
-  </v-form>
+          </div>
+        </v-flex>
+      </v-layout>
+    </v-card-text>
+    <v-card-actions>
+      <span class="grey--text">
+        Выполнить до <v-icon small>event</v-icon> {{ todo.dueDate }} | Создано
+        <v-icon small>calendar_today</v-icon> {{ todo.createdDate }}
+      </span>
+      <v-spacer />
+      <span class="grey--text">
+        <!-- Изменен путь получения имени категории -->
+        <v-icon small>category</v-icon>Категория: {{ todo.category.name }}
+      </span>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <script>
 // импортируем свеженаписанные запросы
-import { ADD_TODO, GET_CATEGORIES, GET_TODO_LIST } from '../graphql'
+import { GET_TODO_LIST, REMOVE_TODO, TOGGLE_TODO } from '../graphql'
 
 export default {
-  name: 'NewTodoForm',
-  data() {
-    return {
-      newTodo: null,
-      categories: [],
-      valid: false,
-      menu: false,
-      nonEmptyField: text =>
-        text ? !!text.length : 'Поле не должно быть пустым',
-      loading: false // индикация выполнения запроса
+  name: 'TodoItem',
+  props: {
+    todo: {
+      type: Object,
+      default: () => ({})
     }
   },
-  apollo: {
-    // загрузка данных для селектора категорий
-    categories: {
-      query: GET_CATEGORIES,
-      update({ categories }) {
-        return categories.map(c => c.name)
-      }
-    }
-  },
-  created() {
-    this.clear()
-  },
+  // с этого момента изменения по-серьезнее
   methods: {
-    add() {
-      this.loading = true
-      this.$apollo
-        .mutate({
-          mutation: ADD_TODO,
-          variables: {
-            ...this.newTodo
-          },
-          // кэш аполло позволяет манипулировать данными из этого кэша, вне зависимости
-          // от того, в каком компоненте выполняется код. Здесь в качестве ответа
-          // сервера мы получаем новую запись Todo. Добавляем её в кэш, записываем
-          // обратно по запросу GET_TODO_LIST, таким образом переменная Apollo
-          // сам разошлет всем подписчикам данного запроса измененные данные. В нашем
-          // случае подписчиком является переменная todoList в компоненте index.vue
-          update: (store, { data: { addTodo } }) => {
-            // если в кэше отсутствуют данные по запросу, то бросится исключение
-            const todoListData = store.readQuery({ query: GET_TODO_LIST })
-            todoListData.todoList.unshift(addTodo)
-            store.writeQuery({ query: GET_CATEGORIES, data: todoListData })
-
-            const categoriesData = store.readQuery({ query: GET_CATEGORIES })
-            // В списке категорий ищем категорию новой записи Todo. При неудачном поиске
-            // добавляем в кэш. Таким образом селектор категорий всегда остается
-            // в актуальном состоянии
-            const category = categoriesData.categories.find(
-              c => c.name === addTodo.category.name
-            )
-            if (!category) {
-              categoriesData.categories.push(addTodo.category)
-              store.writeQuery({ query: GET_CATEGORIES, data: categoriesData })
-            }
-          }
-        })
-        .then(() => {
-          this.clear()
-          this.loading = false
-          this.$refs.form.reset() // сброс валидации формы
-        })
+    toggle() {
+      // Для запроса который возвращает измененный элемент не обязательно
+      // вручную прописывать функцию update. Apollo сам найдёт в каких
+      // запросах "участвует" измененная запись, и разошлет всем подписчикам
+      // измененный объект. В нашем случае это запрос в компоненте index.vue
+      // на получение списка Todo
+      this.$apollo.mutate({
+        mutation: TOGGLE_TODO,
+        variables: {
+          todoId: this.todo.id
+        }
+      })
     },
-    clear() {
-      this.newTodo = {
-        title: '',
-        text: '',
-        dueDate: '',
-        category: ''
-      }
+    remove() {
+      // функция update не видит контекста this
+      const todoId = this.todo.id
+      this.$apollo.mutate({
+        mutation: REMOVE_TODO,
+        variables: {
+          todoId
+        },
+        update(store, { data: { removeTodo } }) {
+          if (!removeTodo) return
+          // В случае успешного удаления удаляем текущий элемент из кэша
+          const data = store.readQuery({ query: GET_TODO_LIST })
+          data.todoList = data.todoList.filter(todo => todo.id !== todoId)
+          // Самоуничтожаемся!
+          store.writeQuery({ query: GET_TODO_LIST, data })
+        }
+      })
     }
   }
 }
 </script>
 ```
+
+{{< /details >}}
 
 Проверим, что у нас получилось
 
