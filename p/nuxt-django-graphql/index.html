@@ -13,6 +13,8 @@ Django — самый популярный веб-фреймворк на поч
 <meta name=twitter:description content="Предисловие Nuxt — &amp;ldquo;фреймворк над фреймворком Vue&amp;rdquo; или популярная конфигурация Vue-based приложений с использованием лучших практик разработки на Vue. Среди них: организация каталогов приложения; включение и преконфигурация самых популярных инструментов в виде Nuxt модулей; включение Vuex по-умолчанию в любую конфигурацию; готовый и преднастроенный SSR с hot-reloading&amp;rsquo;ом
 Django — самый популярный веб-фреймворк на почти самом популярном языке программирования на сегодняшний день — Python. Сами разработчики позиционируют проект как &amp;ldquo;Веб-фреймворк для перфекционистов с дедлайнами&amp;rdquo;."><meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://ingvarlistard.github.io/p/nuxt-django-graphql/cmnlwmcwqu2drhdusjqe2nn6luq.jpeg">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4HM7JZBCS"></script>
+<script>var doNotTrack=!1;if(!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date),gtag('config','G-Y4HM7JZBCS',{anonymize_ip:!1})}</script>
 </head>
 <body class="article-page has-toc">
 <script>(function(){const a='StackColorScheme';localStorage.getItem(a)||localStorage.setItem(a,"auto")})()</script><script>(function(){const b='StackColorScheme',a=localStorage.getItem(b),c=window.matchMedia('(prefers-color-scheme: dark)').matches===!0;a=='dark'||a==='auto'&&c?document.documentElement.dataset.scheme='dark':document.documentElement.dataset.scheme='light'})()</script>
@@ -49,7 +51,7 @@ Python
 </div>
 <div><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentcolor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z"/><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 15"/></svg>
 <time class=article-time--reading>
-Время чтения: 20 мин.
+Время чтения: 19 мин.
 </time>
 </div>
 </footer>
@@ -143,7 +145,7 @@ Python
 </code></pre></div><p>Создаем проект Django.</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>django-admin createapp backend
 </code></pre></div><h3 id=настройка>Настройка</h3>
-<h4 id=перенос-managepy><strong>Перенос manage.py</strong></h4>
+<h4 id=перенос-managepy>Перенос manage.py</h4>
 <p>Так как фронтенд и бэкенд нашего todo-листа будет находиться в одной директории, было бы неплохо иметь все управляющие файлы в корневой директории проекта. В Django управляющим файлом является <code>manage.py</code>, давайте вынесем его из директории <code>backend</code> на уровень повыше.</p>
 <p>Для этого, из корневой директории проекта:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>mv backend/manage.py .
@@ -159,7 +161,7 @@ Python
 </code></pre></div><p>Также в файле <code>backend/backend/settings.py</code> приведем следующие переменные к виду:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=n>ROOT_URLCONF</span> <span class=o>=</span> <span class=s1>&#39;backend.backend.urls&#39;</span>
 <span class=n>WSGI_APPLICATION</span> <span class=o>=</span> <span class=s1>&#39;backend.backend.wsgi.application&#39;</span>
-</code></pre></div><h4 id=добавление-graphene_django><strong>Добавление graphene_django</strong></h4>
+</code></pre></div><h4 id=добавление-graphene_django>Добавление graphene_django</h4>
 <p>В файле <code>backend/backend/settings.py</code> в переменную <code>INSTALLED_APPS</code> добавляем установленный ранее <code>graphene_django</code>:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># backend/backend/settings.py</span>
 
@@ -167,16 +169,21 @@ Python
   <span class=o>...</span><span class=p>,</span>
   <span class=s1>&#39;graphene_django&#39;</span><span class=p>,</span>
 <span class=p>]</span>
-</code></pre></div><h4 id=проверяем-работоспособность><strong>Проверяем работоспособность</strong></h4>
+</code></pre></div><h4 id=проверяем-работоспособность>Проверяем работоспособность</h4>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>python manage.py runserver
 </code></pre></div><p>По-умолчанию сервер запускается на порту <code>8000</code>. Переходим на http://localhost:8000/, он должен нас встречать следующей картиной:</p>
 <details>
 <summary><strong>Django hello</strong></summary>
 <section>
-<img src=hhb-rytssx5jg9nspydgu6lwenc.png alt="Django hello">
+<figure class=gallery-image style=flex-grow:172;flex-basis:414px>
+<a href=/p/nuxt-django-graphql/hhb-rytssx5jg9nspydgu6lwenc.png data-size=597x346>
+<img src=/p/nuxt-django-graphql/hhb-rytssx5jg9nspydgu6lwenc.png width=597 height=346 srcset="/p/nuxt-django-graphql/hhb-rytssx5jg9nspydgu6lwenc_hua2e903f190b514e479de90d1bfb1ac90_30631_480x0_resize_box_3.png 480w, /p/nuxt-django-graphql/hhb-rytssx5jg9nspydgu6lwenc_hua2e903f190b514e479de90d1bfb1ac90_30631_1024x0_resize_box_3.png 1024w" loading=lazy alt="Django hello">
+</a>
+<figcaption>Django hello</figcaption>
+</figure>
 </section>
 </details>
-<h4 id=настройка-graphene><strong>Настройка graphene</strong></h4>
+<h4 id=настройка-graphene>Настройка graphene</h4>
 <p>После изменений ниже <code>http://localhost:8000/</code> уже не будет встречать нас ракетой. В файле <code>backend/backend/urls.py</code></p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># backend/backend/urls.py</span>
 <span class=kn>from</span> <span class=nn>django.contrib</span> <span class=kn>import</span> <span class=n>admin</span>
@@ -204,12 +211,17 @@ Python
 <details>
 <summary><strong>Graphiql IDE</strong></summary>
 <section>
-<img src=ptjbnvouc67igph8iswnrys656g.png alt="Graphiql ide">
+<figure class=gallery-image style=flex-grow:208;flex-basis:501px>
+<a href=/p/nuxt-django-graphql/ptjbnvouc67igph8iswnrys656g.png data-size=1051x503>
+<img src=/p/nuxt-django-graphql/ptjbnvouc67igph8iswnrys656g.png width=1051 height=503 srcset="/p/nuxt-django-graphql/ptjbnvouc67igph8iswnrys656g_huc073217815f655a5917b6e9b1826fd87_90332_480x0_resize_box_3.png 480w, /p/nuxt-django-graphql/ptjbnvouc67igph8iswnrys656g_huc073217815f655a5917b6e9b1826fd87_90332_1024x0_resize_box_3.png 1024w" loading=lazy alt="Graphiql ide">
+</a>
+<figcaption>Graphiql ide</figcaption>
+</figure>
 </section>
 </details>
 <p>Ничего страшного в том, что нас встречает ошибка. Она появляется из-за того, что наша схема пуста. Мы исправим это при реализации дальше.</p>
 <h3 id=приложение-todo_list>Приложение todo_list</h3>
-<h4 id=создание-приложения><strong>Создание приложения</strong></h4>
+<h4 id=создание-приложения>Создание приложения</h4>
 <p>Создадим приложение todo_list и модели к нему. Не забывайте, что все команды должны выполняться внутри окружения pipenv:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=nb>cd</span> backend
 django-admin startapp todo_list
@@ -226,6 +238,9 @@ django-admin startapp todo_list
     <span class=o>...</span>
 <span class=p>]</span>
 </code></pre></div><p>Добавим модели <code>Todo</code> и <code>Category</code> в файл <code>backend/todo_list/models.py</code>:</p>
+<details>
+<summary><strong>models.py</strong></summary>
+<section>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># backend/todo_list/models.py</span>
 <span class=kn>from</span> <span class=nn>datetime</span> <span class=kn>import</span> <span class=n>timedelta</span>
 
@@ -260,10 +275,13 @@ django-admin startapp todo_list
 
     <span class=k>def</span> <span class=fm>__str__</span><span class=p>(</span><span class=bp>self</span><span class=p>):</span>
         <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>title</span>
-</code></pre></div><p>Для того, чтобы наши модели превратились в таблицы в БД, нужно выполнить следующее:</p>
+</code></pre></div>
+</section>
+</details>
+<p>Для того, чтобы наши модели превратились в таблицы в БД, нужно выполнить следующее:</p>
 <p>Создать файлы <a class=link href=https://djbook.ru/rel1.7/topics/migrations.html target=_blank rel=noopener>миграций</a>, в которых будет описываться наша текущая схема:</p>
-<pre tabindex=0><code>python manage.py makemigrations
-</code></pre><p>С примерно таким выводом:</p>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>python manage.py makemigrations
+</code></pre></div><p>С примерно таким выводом:</p>
 <p><figure class=gallery-image style=flex-grow:568;flex-basis:1363px>
 <a href=/p/nuxt-django-graphql/zadktt1beqf8wd6wt2t7ps3d1qy.png data-size=676x119>
 <img src=/p/nuxt-django-graphql/zadktt1beqf8wd6wt2t7ps3d1qy.png width=676 height=119 srcset="/p/nuxt-django-graphql/zadktt1beqf8wd6wt2t7ps3d1qy_hu0d254fd8c9d013c10d38dfcf2492c82e_89403_480x0_resize_box_3.png 480w, /p/nuxt-django-graphql/zadktt1beqf8wd6wt2t7ps3d1qy_hu0d254fd8c9d013c10d38dfcf2492c82e_89403_1024x0_resize_box_3.png 1024w" loading=lazy alt=Вывод>
@@ -271,16 +289,24 @@ django-admin startapp todo_list
 <figcaption>Вывод</figcaption>
 </figure></p>
 <p>Применить эти миграции командой <code>migrate</code>. Т.к. это первый запуск скрипта <code>migrate</code>, у нас также будут применяться миграции приложений Django:</p>
-<pre tabindex=0><code>python manage.py migrate
-</code></pre>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>python manage.py migrate
+</code></pre></div>
 <details>
 <summary><strong>Вывод консоли</strong></summary>
 <section>
-<img src=sscryoufym2z282jrfldthrscjw.png alt="Вывод консоли">
+<figure class=gallery-image style=flex-grow:159;flex-basis:382px>
+<a href=/p/nuxt-django-graphql/sscryoufym2z282jrfldthrscjw.png data-size=845x530>
+<img src=/p/nuxt-django-graphql/sscryoufym2z282jrfldthrscjw.png width=845 height=530 srcset="/p/nuxt-django-graphql/sscryoufym2z282jrfldthrscjw_hud494317920ab598d554deae3b76404d4_503726_480x0_resize_box_3.png 480w, /p/nuxt-django-graphql/sscryoufym2z282jrfldthrscjw_hud494317920ab598d554deae3b76404d4_503726_1024x0_resize_box_3.png 1024w" loading=lazy alt="Вывод консоли">
+</a>
+<figcaption>Вывод консоли</figcaption>
+</figure>
 </section>
 </details>
-<h4 id=создание-graphql-api><strong>Создание GraphQL API</strong></h4>
+<h4 id=создание-graphql-api>Создание GraphQL API</h4>
 <p>Опишем <a class=link href=https://xsltdev.ru/react/graphql/schemas-and-types/ target=_blank rel=noopener>типы</a>, <a class=link href=https://xsltdev.ru/react/graphql/queries-and-mutations/ target=_blank rel=noopener>создадим запросы и мутации</a> для наших новых моделей. Для этого в директории приложения <code>todo_list</code> создадим файл <code>schema.py</code>, со следующим содержимым:</p>
+<details>
+<summary><strong>schema.py</strong></summary>
+<section>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># backend/todo_list/schema.py</span>
 <span class=kn>import</span> <span class=nn>graphene</span>
 <span class=kn>from</span> <span class=nn>graphene_django</span> <span class=kn>import</span> <span class=n>DjangoObjectType</span>
@@ -340,19 +366,25 @@ django-admin startapp todo_list
         <span class=n>todo</span><span class=o>.</span><span class=n>done</span> <span class=o>=</span> <span class=ow>not</span> <span class=n>todo</span><span class=o>.</span><span class=n>done</span>
         <span class=n>todo</span><span class=o>.</span><span class=n>save</span><span class=p>()</span>
         <span class=k>return</span> <span class=n>todo</span>
-</code></pre></div><p>После создания классов мутации и запроса, их нужно добавить в нашу схему. Как вы, возможно, помните схему мы описывали в файле <code>api.py</code>:</p>
+</code></pre></div>
+</section>
+</details>
+<p>После создания классов мутации и запроса, их нужно добавить в нашу схему. Как вы, возможно, помните схему мы описывали в файле <code>api.py</code>:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># backend/backend/api.py</span>
 <span class=kn>import</span> <span class=nn>graphene</span>
 <span class=kn>from</span> <span class=nn>backend.todo_list.schema</span> <span class=kn>import</span> <span class=n>Query</span><span class=p>,</span> <span class=n>Mutation</span>
 <span class=n>schema</span> <span class=o>=</span> <span class=n>graphene</span><span class=o>.</span><span class=n>Schema</span><span class=p>(</span><span class=n>query</span><span class=o>=</span><span class=n>Query</span><span class=p>,</span> <span class=n>mutation</span><span class=o>=</span><span class=n>Mutation</span><span class=p>)</span>
 </code></pre></div><p>Если хотите лучше понять происходящее, можете прочитать <a class=link href=https://habr.com/ru/post/461939/ target=_blank rel=noopener>эту</a> статью на Хабре, или обратиться к документации <a class=link href=https://docs.graphene-python.org/en/latest/types/ target=_blank rel=noopener>Graphene</a> (англ.).</p>
-<h4 id=проверка-api><strong>Проверка API</strong></h4>
+<h4 id=проверка-api>Проверка API</h4>
 <p>ID записей в примерах ниже могут различаться с ID ваших записей.</p>
 <p>Запускаем сервер привычной командой <code>runserver</code>:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-sh data-lang=sh>python manage.py runserver
 </code></pre></div><p>Идем по пути http://localhost:8000/graphql/. Там нас должен встречать уже знакомый интерфейс <code>graphiql</code>. И как вы, возможно, заметили ошибка пропала.</p>
 <p>Давайте проверим получившиеся запросы и мутации.</p>
-<p><strong>Запрос addTodo</strong></p>
+<details>
+<summary><strong>addTodo</strong></summary>
+<section>
+<p><strong>Мутация</strong></p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-graphql data-lang=graphql><span class=w>  </span><span class=kd>mutation</span><span class=p>(</span><span class=w>
 </span><span class=w>    </span><span class=nv>$title</span><span class=p>:</span><span class=w> </span><span class=nc>String</span><span class=p>!</span><span class=w>
 </span><span class=w>    </span><span class=nv>$text</span><span class=p>:</span><span class=w> </span><span class=nc>String</span><span class=w>
@@ -393,12 +425,17 @@ django-admin startapp todo_list
 </a>
 <figcaption>Результат</figcaption>
 </figure></p>
+</section>
+</details>
 <p>В результате этой мутации у нас создалось две записи:</p>
 <ul>
 <li><code>Todo</code> т.к. собственно мутация для этого и написана;</li>
 <li><code>Category</code>, т.к. в базе не оказалось категорий с названием &ldquo;Работа&rdquo;, а метод <code>get_or_create</code> говорит за себя сам.</li>
 </ul>
-<p><strong>Запрос todoList и categories</strong></p>
+<details>
+<summary><strong>todoList и categories</strong></summary>
+<section>
+<p><strong>Запрос</strong></p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-graphql data-lang=graphql><span class=p>{</span><span class=w>
 </span><span class=w>  </span><span class=py>todoList</span><span class=w> </span><span class=p>{</span><span class=w>
 </span><span class=w>    </span><span class=py>id</span><span class=w>
@@ -423,7 +460,12 @@ django-admin startapp todo_list
 </a>
 <figcaption>Результат</figcaption>
 </figure></p>
-<p><strong>Мутация toggleTodo</strong></p>
+</section>
+</details>
+<details>
+<summary><strong>toggleTodo</strong></summary>
+<section>
+<p><strong>Мутация</strong></p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-graphql data-lang=graphql><span class=kd>mutation</span><span class=w> </span><span class=p>(</span><span class=nv>$todoId</span><span class=p>:</span><span class=w> </span><span class=nc>ID</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
 </span><span class=w>  </span><span class=nc>toggleTodo</span><span class=p>(</span><span class=py>todoId</span><span class=p>:</span><span class=w> </span><span class=nv>$todoId</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
 </span><span class=w>    </span><span class=nc>id</span><span class=w>
@@ -449,11 +491,16 @@ django-admin startapp todo_list
 </a>
 <figcaption>Результат</figcaption>
 </figure></p>
-<p><strong>Мутация removeTodo</strong></p>
+</section>
+</details>
+<details>
+<summary><strong>removeTodo</strong></summary>
+<section>
+<p><strong>Мутация</strong></p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-graphql data-lang=graphql><span class=kd>mutation</span><span class=w> </span><span class=p>(</span><span class=nv>$todoId</span><span class=p>:</span><span class=w> </span><span class=nc>ID</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
 </span><span class=w>  </span><span class=nc>removeTodo</span><span class=p>(</span><span class=py>todoId</span><span class=p>:</span><span class=w> </span><span class=nv>$todoId</span><span class=p>)</span><span class=w>
 </span><span class=w></span><span class=p>}</span><span class=w>
-</span></code></pre></div><p><strong>Переменные</strong> можно оставить из предыдущей мутации.</p>
+</span></code></pre></div><p>Переменные можно оставить из предыдущей мутации.</p>
 <p><strong>Результат</strong></p>
 <p><figure class=gallery-image style=flex-grow:184;flex-basis:443px>
 <a href=/p/nuxt-django-graphql/xovn268dblwy2d4gp97ahgnve6s.png data-size=886x480>
@@ -461,6 +508,8 @@ django-admin startapp todo_list
 </a>
 <figcaption>Результат</figcaption>
 </figure></p>
+</section>
+</details>
 <h2 id=nuxt>Nuxt</h2>
 <h3 id=создание-nuxt-приложения>Создание Nuxt приложения</h3>
 <p>Откройте консоль внутри корневой директории проекта и запустите скрипт установки <code>Nuxt</code>:</p>
@@ -479,7 +528,12 @@ npm run dev
 <details>
 <summary><strong>Nuxt + Vuetify</strong></summary>
 <section>
-<img src=oimeo_qzmt-juuzhixs20put1cy.png alt="Nuxt + Vuetify">
+<figure class=gallery-image style=flex-grow:152;flex-basis:365px>
+<a href=/p/nuxt-django-graphql/oimeo_qzmt-juuzhixs20put1cy.png data-size=981x645>
+<img src=/p/nuxt-django-graphql/oimeo_qzmt-juuzhixs20put1cy.png width=981 height=645 srcset="/p/nuxt-django-graphql/oimeo_qzmt-juuzhixs20put1cy_hu296e51479efad2c257c15cae13b74939_68530_480x0_resize_box_3.png 480w, /p/nuxt-django-graphql/oimeo_qzmt-juuzhixs20put1cy_hu296e51479efad2c257c15cae13b74939_68530_1024x0_resize_box_3.png 1024w" loading=lazy alt="Nuxt + Vuetify">
+</a>
+<figcaption>Nuxt + Vuetify</figcaption>
+</figure>
 </section>
 </details>
 <h3 id=перенос-конфигурационных-файлов>Перенос конфигурационных файлов</h3>
@@ -517,6 +571,9 @@ rm -rf .git
   <span class=o>&lt;</span><span class=err>/v-app&gt;</span>
 <span class=p>&lt;/</span><span class=nt>template</span><span class=p>&gt;</span>
 </code></pre></div><p>Создадим компонент нового <code>Todo</code> по пути <code>frontend/components/NewTodoForm.vue</code>:</p>
+<details>
+<summary><strong>NewTodoForm.vue</strong></summary>
+<section>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=c>&lt;!--</span> <span class=nx>frontend</span><span class=o>/</span><span class=nx>components</span><span class=o>/</span><span class=nx>NewTodoForm</span><span class=p>.</span><span class=nx>vue</span> <span class=o>--&gt;</span>
 <span class=p>&lt;</span><span class=nt>template</span><span class=p>&gt;</span>
   <span class=p>&lt;</span><span class=nt>v-form</span> <span class=na>ref</span><span class=o>=</span><span class=s>&#34;form&#34;</span> <span class=nt>v-model</span><span class=s>=&#34;valid&#34;</span><span class=p>&gt;</span>
@@ -640,7 +697,13 @@ rm -rf .git
   <span class=p>}</span>
 <span class=p>}</span>
 <span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-</code></pre></div><p>Далее компонент существующего <code>Todo</code>, там же:</p>
+</code></pre></div>
+</section>
+</details>
+<p>Далее компонент существующего <code>Todo</code>, там же:</p>
+<details>
+<summary><strong>TodoItem.vue</strong></summary>
+<section>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=c>&lt;!--</span> <span class=nx>frontend</span><span class=o>/</span><span class=nx>components</span><span class=o>/</span><span class=nx>TodoItem</span><span class=p>.</span><span class=nx>vue</span> <span class=o>--&gt;</span>
 <span class=p>&lt;</span><span class=nt>template</span><span class=p>&gt;</span>
   <span class=p>&lt;</span><span class=nt>v-card</span><span class=p>&gt;</span>
@@ -699,7 +762,13 @@ rm -rf .git
   <span class=p>}</span>
 <span class=p>}</span>
 <span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-</code></pre></div><p>И наконец вставим новые компоненты в <code>index.vue</code>, и добавим в него немного рыбы:</p>
+</code></pre></div>
+</section>
+</details>
+<p>И наконец вставим новые компоненты в <code>index.vue</code>, и добавим в него немного рыбы:</p>
+<details>
+<summary><strong>index.vue</strong></summary>
+<section>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=c>&lt;!--</span> <span class=nx>frontend</span><span class=o>/</span><span class=nx>pages</span><span class=o>/</span><span class=nx>index</span><span class=p>.</span><span class=nx>vue</span> <span class=o>--&gt;</span>
 <span class=p>&lt;</span><span class=nt>template</span><span class=p>&gt;</span>
   <span class=p>&lt;</span><span class=nt>v-layout</span> <span class=na>row</span> <span class=na>wrap</span> <span class=na>justify</span><span class=nt>-center</span><span class=p>&gt;</span>
@@ -804,11 +873,19 @@ rm -rf .git
   <span class=p>}</span>
 <span class=p>}</span>
 <span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-</code></pre></div><p>После проделанной работы рекомендую проверить работоспособность получившегося макета. Запустите <code>dev</code> сервер и перейдите на http://localhost:3000/, там вы должны увидеть следующую картину:</p>
+</code></pre></div>
+</section>
+</details>
+<p>После проделанной работы рекомендую проверить работоспособность получившегося макета. Запустите <code>dev</code> сервер и перейдите на http://localhost:3000/, там вы должны увидеть следующую картину:</p>
 <details>
 <summary><strong>Функциональный макет</strong></summary>
 <section>
-<img src=gsg0plu-vg6tllgm1gvgfcot9oi.png alt="Nuxt + Vuetify">
+<figure class=gallery-image style=flex-grow:151;flex-basis:363px>
+<a href=/p/nuxt-django-graphql/gsg0plu-vg6tllgm1gvgfcot9oi.png data-size=869x573>
+<img src=/p/nuxt-django-graphql/gsg0plu-vg6tllgm1gvgfcot9oi.png width=869 height=573 srcset="/p/nuxt-django-graphql/gsg0plu-vg6tllgm1gvgfcot9oi_hue6396bee632e15b15340367c187bc3d3_54914_480x0_resize_box_3.png 480w, /p/nuxt-django-graphql/gsg0plu-vg6tllgm1gvgfcot9oi_hue6396bee632e15b15340367c187bc3d3_54914_1024x0_resize_box_3.png 1024w" loading=lazy alt="Nuxt + Vuetify">
+</a>
+<figcaption>Nuxt + Vuetify</figcaption>
+</figure>
 </section>
 </details>
 <h2 id=объединение-фронтенда-и-бэкенда>Объединение фронтенда и бэкенда</h2>
@@ -820,6 +897,9 @@ rm -rf .git
 <p>В нашем случае проблема в том, что вне зависимости от того, выполняется в Apollo мутация или запрос, метод их по-умолчанию всегда будет POST. Apollo позволяет изменить это поведение таким образом, чтобы для <code>Query</code> метод запроса был GET, а для <code>Mutation</code> — POST, но насколько я знаю, graphene на данный момент не поддерживает подобный режим работы.</p>
 <p>Я поступил следующим образом: немного расширил логику стандартного <code>CsrfViewMiddleware</code> таким образом, чтобы он проверял тип GraphQL запроса, и уже на основе этого принимал или сбрасывал соединение.</p>
 <p>Для этого добавим кастомную проверку CSRF, например, в уже знакомый нам файл <code>api.py</code></p>
+<details>
+<summary><strong>api.py</strong></summary>
+<section>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># backend/backend/api.py</span>
 <span class=kn>import</span> <span class=nn>json</span>
 <span class=kn>import</span> <span class=nn>graphene</span>
@@ -856,7 +936,10 @@ rm -rf .git
             <span class=k>if</span> <span class=s1>&#39;query&#39;</span> <span class=ow>in</span> <span class=n>body</span> <span class=ow>and</span> <span class=s1>&#39;mutation&#39;</span> <span class=ow>not</span> <span class=ow>in</span> <span class=n>body</span><span class=p>:</span>
                 <span class=k>return</span> <span class=bp>self</span><span class=o>.</span><span class=n>_accept</span><span class=p>(</span><span class=n>request</span><span class=p>)</span>
         <span class=k>return</span> <span class=nb>super</span><span class=p>(</span><span class=n>CustomCsrfMiddleware</span><span class=p>,</span> <span class=bp>self</span><span class=p>)</span><span class=o>.</span><span class=n>process_view</span><span class=p>(</span><span class=n>request</span><span class=p>,</span> <span class=n>callback</span><span class=p>,</span> <span class=n>callback_args</span><span class=p>,</span> <span class=n>callback_kwargs</span><span class=p>)</span>
-</code></pre></div><p>Далее, в файле <code>settings.py</code> нужно заменить &ldquo;оригинальный&rdquo; <code>CsrfViewMiddleware</code>, на кастомный:</p>
+</code></pre></div>
+</section>
+</details>
+<p>Далее, в файле <code>settings.py</code> нужно заменить &ldquo;оригинальный&rdquo; <code>CsrfViewMiddleware</code>, на кастомный:</p>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=c1># settings.py</span>
 <span class=n>MIDDLEWARE</span> <span class=o>=</span> <span class=p>[</span>
     <span class=o>...</span><span class=p>,</span>
@@ -913,6 +996,9 @@ rm -rf .git
 <span class=p>}</span>
 </code></pre></div><p>Настройка Apollo дело невсегда тривиальное. Постараемся обойтись минимальной конфигурацией. Создадим файл по указанному выше пути:</p>
 <p>Конфигурируем клиент <code>Apollo</code>, а вместе с тем формируем цепочку обработчиков запросов.</p>
+<details>
+<summary><strong>apollo-client.js</strong></summary>
+<section>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=c1>// frontend/plugins/apollo-client.js
 </span><span class=c1></span><span class=kr>import</span> <span class=p>{</span> <span class=nx>HttpLink</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;apollo-link-http&#39;</span>
 <span class=kr>import</span> <span class=p>{</span> <span class=nx>setContext</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;apollo-link-context&#39;</span>
@@ -968,10 +1054,16 @@ rm -rf .git
 </span><span class=c1></span>    <span class=nx>defaultHttpLink</span><span class=o>:</span> <span class=kc>false</span>
   <span class=p>}</span>
 <span class=p>}</span>
-</code></pre></div><p>На этом этапе лучше еще раз удостовериться, что Nuxt собирается без ошибок, запустив dev сервер.</p>
+</code></pre></div>
+</section>
+</details>
+<p>На этом этапе лучше еще раз удостовериться, что Nuxt собирается без ошибок, запустив dev сервер.</p>
 <h3 id=оживляем-приложение>Оживляем приложение</h3>
 <p>И вот наконец настало время соединить фронт и бэк.</p>
 <p>Для начала где-нибудь создадим файл, в котором будут храниться все запросы и мутации к бэкенду. В моем случае этот файл расположился по пути <code>frontend/graphql.js</code> с уже знакомым нам содержимым:</p>
+<details>
+<summary><strong>graphql.js</strong></summary>
+<section>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-js data-lang=js><span class=kr>import</span> <span class=nx>gql</span> <span class=nx>from</span> <span class=s1>&#39;graphql-tag&#39;</span>
 
 <span class=c1>// т.к. внутренности записи Todo используются практически во всех запросах,
@@ -1045,8 +1137,14 @@ rm -rf .git
 </span><span class=sb>`</span>
 
 <span class=kr>export</span> <span class=p>{</span> <span class=nx>ADD_TODO</span><span class=p>,</span> <span class=nx>TOGGLE_TODO</span><span class=p>,</span> <span class=nx>GET_CATEGORIES</span><span class=p>,</span> <span class=nx>GET_TODO_LIST</span><span class=p>,</span> <span class=nx>REMOVE_TODO</span> <span class=p>}</span>
-</code></pre></div><p>Теперь нужно немного изменить уже существующий функционал фронтенда. Наконец пришло время добавить туда взаимодействие с бэкендом.</p>
+</code></pre></div>
+</section>
+</details>
+<p>Теперь нужно немного изменить уже существующий функционал фронтенда. Наконец пришло время добавить туда взаимодействие с бэкендом.</p>
 <p>Изменим Vue компоненты:</p>
+<details>
+<summary><strong>index.vue</strong></summary>
+<section>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=c>&lt;!--</span> <span class=nx>frontend</span><span class=o>/</span><span class=nx>pages</span><span class=o>/</span><span class=nx>index</span><span class=p>.</span><span class=nx>vue</span> <span class=o>--&gt;</span>
 <span class=p>&lt;</span><span class=nt>template</span><span class=p>&gt;</span>
   <span class=p>&lt;</span><span class=nt>v-layout</span> <span class=na>row</span> <span class=na>wrap</span> <span class=na>justify</span><span class=nt>-center</span><span class=p>&gt;</span>
@@ -1081,7 +1179,13 @@ rm -rf .git
   <span class=p>}</span>
 <span class=p>}</span>
 <span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=c>&lt;!--</span> <span class=nx>frontend</span><span class=o>/</span><span class=nx>components</span><span class=o>/</span><span class=nx>NewTodoForm</span><span class=p>.</span><span class=nx>vue</span> <span class=o>--&gt;</span>
+</code></pre></div>
+</section>
+</details>
+<details>
+<summary><strong>NewTodoForm.vue</strong></summary>
+<section>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=c>&lt;!--</span> <span class=nx>frontend</span><span class=o>/</span><span class=nx>components</span><span class=o>/</span><span class=nx>NewTodoForm</span><span class=p>.</span><span class=nx>vue</span> <span class=o>--&gt;</span>
 <span class=p>&lt;</span><span class=nt>template</span><span class=p>&gt;</span>
   <span class=p>&lt;</span><span class=nt>v-card</span><span class=p>&gt;</span>
     <span class=p>&lt;</span><span class=nt>v-card-title</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;pb-1&#34;</span> <span class=na>style</span><span class=o>=</span><span class=s>&#34;overflow-wrap: break-word;&#34;</span><span class=p>&gt;</span>
@@ -1180,183 +1284,123 @@ rm -rf .git
   <span class=p>}</span>
 <span class=p>}</span>
 <span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-</code></pre></div><div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=c>&lt;!--</span> <span class=nx>frontend</span><span class=o>/</span><span class=nx>components</span><span class=o>/</span><span class=nx>NewTodoForm</span><span class=p>.</span><span class=nx>vue</span> <span class=o>--&gt;</span>
+</code></pre></div>
+</section>
+</details>
+<details>
+<summary><strong>TodoItem.vue</strong></summary>
+<section>
+<div class=highlight><pre tabindex=0 class=chroma><code class=language-vue data-lang=vue><span class=c>&lt;!--</span> <span class=nx>frontend</span><span class=o>/</span><span class=nx>components</span><span class=o>/</span><span class=nx>TodoItem</span><span class=p>.</span><span class=nx>vue</span> <span class=o>--&gt;</span>
 <span class=p>&lt;</span><span class=nt>template</span><span class=p>&gt;</span>
-  <span class=p>&lt;</span><span class=nt>v-form</span> <span class=na>ref</span><span class=o>=</span><span class=s>&#34;form&#34;</span> <span class=nt>v-model</span><span class=s>=&#34;valid&#34;</span><span class=p>&gt;</span>
-    <span class=p>&lt;</span><span class=nt>v-card</span><span class=p>&gt;</span>
-      <span class=p>&lt;</span><span class=nt>v-card-text</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;pt-0 mt-0&#34;</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>v-layout</span> <span class=na>row</span> <span class=na>wrap</span><span class=p>&gt;</span>
-          <span class=p>&lt;</span><span class=nt>v-flex</span> <span class=na>xs8</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>v-text-field</span>
-              <span class=nt>v-model</span><span class=s>=&#34;newTodo.title&#34;
-</span><span class=s>              :rules=&#34;[nonEmptyField]&#34;
-</span><span class=s>              label=&#34;Задача&#34;
-</span><span class=s>              prepend-icon=&#34;check_circle_outline&#34;
-</span><span class=s>            /&gt;
-</span><span class=s>          &lt;/v-flex&gt;
-</span><span class=s>          &lt;v-flex xs4&gt;
-</span><span class=s>            &lt;v-menu
-</span><span class=s>              ref=&#34;menu&#34;
-</span><span class=s>              v-model=&#34;menu&#34;
-</span><span class=s>              :close-on-content-click=&#34;false&#34;
-</span><span class=s>              :nudge-right=&#34;40&#34;
-</span><span class=s>              :return-value.sync=&#34;newTodo.dueDate&#34;
-</span><span class=s>              lazy
-</span><span class=s>              transition=&#34;scale-transition&#34;
-</span><span class=s>              offset-y
-</span><span class=s>              full-width
-</span><span class=s>              min-width=&#34;290px&#34;
-</span><span class=s>            &gt;
-</span><span class=s>              &lt;template v-slot:activator=&#34;{ on }&#34;&gt;
-</span><span class=s>                &lt;v-text-field
-</span><span class=s>                  v-model=&#34;newTodo.dueDate&#34;
-</span><span class=s>                  :rules=&#34;[nonEmptyField]&#34;
-</span><span class=s>                  v-on=&#34;on&#34;
-</span><span class=s>                  label=&#34;Дата выполнения&#34;
-</span><span class=s>                  prepend-icon=&#34;event&#34;
-</span><span class=s>                  readonly
-</span><span class=s>                /&gt;
-</span><span class=s>              &lt;/template&gt;
-</span><span class=s>              &lt;v-date-picker
-</span><span class=s>                v-model=&#34;newTodo.dueDate&#34;
-</span><span class=s>                no-title
-</span><span class=s>                scrollable
-</span><span class=s>                locale=&#34;ru-ru&#34;
-</span><span class=s>                first-day-of-week=&#34;1&#34;
-</span><span class=s>              &gt;
-</span><span class=s>                &lt;v-spacer /&gt;
-</span><span class=s>                &lt;v-btn @click=&#34;menu = false&#34; flat color=&#34;primary&#34;</span><span class=p>&gt;</span><span class=na>Отмена</span><span class=err>&lt;/</span><span class=nt>v-btn</span><span class=p>&gt;</span>
-                <span class=p>&lt;</span><span class=nt>v-btn</span>
-                  <span class=nt>@click</span><span class=s>=&#34;$refs.menu.save(newTodo.dueDate)&#34;</span>
-                  <span class=na>flat</span>
-                  <span class=na>color</span><span class=o>=</span><span class=s>&#34;primary&#34;</span>
-                  <span class=p>&gt;</span><span class=nx>Выбрать</span><span class=o>&lt;</span><span class=err>/v-btn</span>
-                <span class=o>&gt;</span>
-              <span class=o>&lt;</span><span class=err>/v-date-picker&gt;</span>
-            <span class=o>&lt;</span><span class=err>/v-menu&gt;</span>
-          <span class=o>&lt;</span><span class=err>/v-flex&gt;</span>
-          <span class=p>&lt;</span><span class=nt>v-flex</span> <span class=na>xs12</span><span class=p>&gt;</span>
-            <span class=p>&lt;</span><span class=nt>v-textarea</span>
-              <span class=na>v</span><span class=nt>-model</span><span class=err>=&#34;</span><span class=na>newTodo.text</span><span class=err>&#34;</span>
-              <span class=nt>:rules</span><span class=s>=&#34;[nonEmptyField]&#34;</span>
-              <span class=na>label</span><span class=o>=</span><span class=s>&#34;Описание&#34;</span>
-              <span class=na>prepend</span><span class=nt>-icon</span><span class=err>=&#34;</span><span class=na>description</span><span class=err>&#34;</span>
+  <span class=p>&lt;</span><span class=nt>v-card</span><span class=p>&gt;</span>
+    <span class=p>&lt;</span><span class=nt>v-card-title</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;pb-1&#34;</span> <span class=na>style</span><span class=o>=</span><span class=s>&#34;overflow-wrap: break-word;&#34;</span><span class=p>&gt;</span>
+      <span class=p>&lt;</span><span class=nt>b</span><span class=p>&gt;{{</span> <span class=nx>todo</span><span class=p>.</span><span class=nx>title</span> <span class=p>}}&lt;/</span><span class=nt>b</span><span class=p>&gt;</span>
+      <span class=p>&lt;</span><span class=nt>v-spacer</span> <span class=p>/&gt;</span>
+      <span class=c>&lt;!--</span> <span class=nx>Изменено</span> <span class=nx>событие</span> <span class=o>--&gt;</span>
+      <span class=p>&lt;</span><span class=nt>v-btn</span>
+        <span class=nt>@click</span><span class=s>=&#34;remove&#34;</span>
+        <span class=na>flat</span>
+        <span class=na>small</span>
+        <span class=na>icon</span>
+        <span class=na>style</span><span class=o>=</span><span class=s>&#34;position: absolute; right: 0; top: 0&#34;</span>
+      <span class=p>&gt;</span>
+        <span class=p>&lt;</span><span class=nt>v-icon</span> <span class=nt>:disabled</span><span class=s>=&#34;$nuxt.isServer&#34;</span> <span class=na>small</span><span class=p>&gt;</span><span class=nx>close</span><span class=o>&lt;</span><span class=err>/v-icon&gt;</span>
+      <span class=o>&lt;</span><span class=err>/v-btn&gt;</span>
+    <span class=o>&lt;</span><span class=err>/v-card-title&gt;</span>
+    <span class=p>&lt;</span><span class=nt>v-card-text</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;py-1&#34;</span><span class=p>&gt;</span>
+      <span class=p>&lt;</span><span class=nt>v-layout</span> <span class=na>row</span> <span class=na>justyfy</span><span class=nt>-center</span> <span class=na>align</span><span class=nt>-center</span><span class=p>&gt;</span>
+        <span class=p>&lt;</span><span class=nt>v-flex</span> <span class=na>xs11</span> <span class=na>style</span><span class=o>=</span><span class=s>&#34;overflow-wrap: break-word;&#34;</span><span class=p>&gt;</span>
+          <span class=p>{{</span> <span class=nx>todo</span><span class=p>.</span><span class=nx>text</span> <span class=p>}}</span>
+        <span class=o>&lt;</span><span class=err>/v-flex&gt;</span>
+        <span class=p>&lt;</span><span class=nt>v-flex</span> <span class=na>xs1</span><span class=p>&gt;</span>
+          <span class=p>&lt;</span><span class=nt>div</span> <span class=na>style</span><span class=o>=</span><span class=s>&#34;text-align: right;&#34;</span><span class=p>&gt;</span>
+            <span class=c>&lt;!--</span> <span class=nx>Добавлена</span> <span class=nx>обработка</span> <span class=nx>клика</span> <span class=o>--&gt;</span>
+            <span class=p>&lt;</span><span class=nt>v-checkbox</span>
+              <span class=nt>:value</span><span class=s>=&#34;todo.done&#34;</span>
+              <span class=nt>@click.once</span><span class=s>=&#34;toggle&#34;</span>
               <span class=na>hide</span><span class=nt>-details</span>
-              <span class=na>rows</span><span class=o>=</span><span class=s>&#34;1&#34;</span>
-              <span class=na>class</span><span class=o>=</span><span class=s>&#34;py-0 my-0&#34;</span>
+              <span class=na>class</span><span class=o>=</span><span class=s>&#34;pa-0 ma-0&#34;</span>
+              <span class=na>style</span><span class=o>=</span><span class=s>&#34;display: inline-block;&#34;</span>
+              <span class=na>color</span><span class=o>=</span><span class=s>&#34;green lighten-1&#34;</span>
             <span class=p>/&gt;</span>
-          <span class=o>&lt;</span><span class=err>/v-flex&gt;</span>
-        <span class=o>&lt;</span><span class=err>/v-layout&gt;</span>
-      <span class=o>&lt;</span><span class=err>/v-card-text&gt;</span>
-      <span class=p>&lt;</span><span class=nt>v-card-actions</span><span class=p>&gt;</span>
-        <span class=p>&lt;</span><span class=nt>v-combobox</span>
-          <span class=na>v</span><span class=nt>-model</span><span class=err>=&#34;</span><span class=na>newTodo.category</span><span class=err>&#34;</span>
-          <span class=nt>:rules</span><span class=s>=&#34;[nonEmptyField]&#34;</span>
-          <span class=nt>:items</span><span class=s>=&#34;categories&#34;</span>
-          <span class=na>hide</span><span class=nt>-details</span>
-          <span class=na>label</span><span class=o>=</span><span class=s>&#34;Категория&#34;</span>
-          <span class=na>class</span><span class=o>=</span><span class=s>&#34;my-0 mx-2 mb-2 pt-0&#34;</span>
-          <span class=na>prepend</span><span class=nt>-icon</span><span class=err>=&#34;</span><span class=na>category</span><span class=err>&#34;</span>
-        <span class=p>/&gt;</span>
-        <span class=p>&lt;</span><span class=nt>v-spacer</span> <span class=p>/&gt;</span>
-        <span class=p>&lt;</span><span class=nt>v-btn</span>
-          <span class=nt>:disabled</span><span class=s>=&#34;!valid&#34;</span>
-          <span class=nt>:loading</span><span class=s>=&#34;loading&#34;</span>
-          <span class=nt>@click</span><span class=s>=&#34;add&#34;</span>
-          <span class=na>color</span><span class=o>=</span><span class=s>&#34;blue lighten-1&#34;</span>
-          <span class=na>flat</span>
-          <span class=p>&gt;</span><span class=nx>Добавить</span><span class=o>&lt;</span><span class=err>/v-btn</span>
-        <span class=o>&gt;</span>
-      <span class=o>&lt;</span><span class=err>/v-card-actions&gt;</span>
-    <span class=o>&lt;</span><span class=err>/v-card&gt;</span>
-  <span class=o>&lt;</span><span class=err>/v-form&gt;</span>
+          <span class=p>&lt;/</span><span class=nt>div</span><span class=p>&gt;</span>
+        <span class=o>&lt;</span><span class=err>/v-flex&gt;</span>
+      <span class=o>&lt;</span><span class=err>/v-layout&gt;</span>
+    <span class=o>&lt;</span><span class=err>/v-card-text&gt;</span>
+    <span class=p>&lt;</span><span class=nt>v-card-actions</span><span class=p>&gt;</span>
+      <span class=p>&lt;</span><span class=nt>span</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;grey--text&#34;</span><span class=p>&gt;</span>
+        <span class=nx>Выполнить</span> <span class=nx>до</span> <span class=p>&lt;</span><span class=nt>v-icon</span> <span class=na>small</span><span class=p>&gt;</span><span class=nx>event</span><span class=o>&lt;</span><span class=err>/v-icon&gt; {{ todo.dueDate }} | Создано</span>
+        <span class=p>&lt;</span><span class=nt>v-icon</span> <span class=na>small</span><span class=p>&gt;</span><span class=nx>calendar_today</span><span class=o>&lt;</span><span class=err>/v-icon&gt; {{ todo.createdDate }}</span>
+      <span class=p>&lt;/</span><span class=nt>span</span><span class=p>&gt;</span>
+      <span class=p>&lt;</span><span class=nt>v-spacer</span> <span class=p>/&gt;</span>
+      <span class=p>&lt;</span><span class=nt>span</span> <span class=na>class</span><span class=o>=</span><span class=s>&#34;grey--text&#34;</span><span class=p>&gt;</span>
+        <span class=c>&lt;!--</span> <span class=nx>Изменен</span> <span class=nx>путь</span> <span class=nx>получения</span> <span class=nx>имени</span> <span class=nx>категории</span> <span class=o>--&gt;</span>
+        <span class=p>&lt;</span><span class=nt>v-icon</span> <span class=na>small</span><span class=p>&gt;</span><span class=nx>category</span><span class=o>&lt;</span><span class=err>/v-icon&gt;Категория: {{ todo.category.name }}</span>
+      <span class=p>&lt;/</span><span class=nt>span</span><span class=p>&gt;</span>
+    <span class=o>&lt;</span><span class=err>/v-card-actions&gt;</span>
+  <span class=o>&lt;</span><span class=err>/v-card&gt;</span>
 <span class=p>&lt;/</span><span class=nt>template</span><span class=p>&gt;</span>
 
 <span class=p>&lt;</span><span class=nt>script</span><span class=p>&gt;</span>
 <span class=c1>// импортируем свеженаписанные запросы
-</span><span class=c1></span><span class=kr>import</span> <span class=p>{</span> <span class=nx>ADD_TODO</span><span class=p>,</span> <span class=nx>GET_CATEGORIES</span><span class=p>,</span> <span class=nx>GET_TODO_LIST</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;../graphql&#39;</span>
+</span><span class=c1></span><span class=kr>import</span> <span class=p>{</span> <span class=nx>GET_TODO_LIST</span><span class=p>,</span> <span class=nx>REMOVE_TODO</span><span class=p>,</span> <span class=nx>TOGGLE_TODO</span> <span class=p>}</span> <span class=nx>from</span> <span class=s1>&#39;../graphql&#39;</span>
 
 <span class=kr>export</span> <span class=k>default</span> <span class=p>{</span>
-  <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;NewTodoForm&#39;</span><span class=p>,</span>
-  <span class=nx>data</span><span class=p>()</span> <span class=p>{</span>
-    <span class=k>return</span> <span class=p>{</span>
-      <span class=nx>newTodo</span><span class=o>:</span> <span class=kc>null</span><span class=p>,</span>
-      <span class=nx>categories</span><span class=o>:</span> <span class=p>[],</span>
-      <span class=nx>valid</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
-      <span class=nx>menu</span><span class=o>:</span> <span class=kc>false</span><span class=p>,</span>
-      <span class=nx>nonEmptyField</span><span class=o>:</span> <span class=nx>text</span> <span class=p>=&gt;</span>
-        <span class=nx>text</span> <span class=o>?</span> <span class=o>!!</span><span class=nx>text</span><span class=p>.</span><span class=nx>length</span> <span class=o>:</span> <span class=s1>&#39;Поле не должно быть пустым&#39;</span><span class=p>,</span>
-      <span class=nx>loading</span><span class=o>:</span> <span class=kc>false</span> <span class=c1>// индикация выполнения запроса
-</span><span class=c1></span>    <span class=p>}</span>
-  <span class=p>},</span>
-  <span class=nx>apollo</span><span class=o>:</span> <span class=p>{</span>
-    <span class=c1>// загрузка данных для селектора категорий
-</span><span class=c1></span>    <span class=nx>categories</span><span class=o>:</span> <span class=p>{</span>
-      <span class=nx>query</span><span class=o>:</span> <span class=nx>GET_CATEGORIES</span><span class=p>,</span>
-      <span class=nx>update</span><span class=p>({</span> <span class=nx>categories</span> <span class=p>})</span> <span class=p>{</span>
-        <span class=k>return</span> <span class=nx>categories</span><span class=p>.</span><span class=nx>map</span><span class=p>(</span><span class=nx>c</span> <span class=p>=&gt;</span> <span class=nx>c</span><span class=p>.</span><span class=nx>name</span><span class=p>)</span>
-      <span class=p>}</span>
+  <span class=nx>name</span><span class=o>:</span> <span class=s1>&#39;TodoItem&#39;</span><span class=p>,</span>
+  <span class=nx>props</span><span class=o>:</span> <span class=p>{</span>
+    <span class=nx>todo</span><span class=o>:</span> <span class=p>{</span>
+      <span class=nx>type</span><span class=o>:</span> <span class=nb>Object</span><span class=p>,</span>
+      <span class=k>default</span><span class=o>:</span> <span class=p>()</span> <span class=p>=&gt;</span> <span class=p>({})</span>
     <span class=p>}</span>
   <span class=p>},</span>
-  <span class=nx>created</span><span class=p>()</span> <span class=p>{</span>
-    <span class=k>this</span><span class=p>.</span><span class=nx>clear</span><span class=p>()</span>
-  <span class=p>},</span>
-  <span class=nx>methods</span><span class=o>:</span> <span class=p>{</span>
-    <span class=nx>add</span><span class=p>()</span> <span class=p>{</span>
-      <span class=k>this</span><span class=p>.</span><span class=nx>loading</span> <span class=o>=</span> <span class=kc>true</span>
-      <span class=k>this</span><span class=p>.</span><span class=nx>$apollo</span>
-        <span class=p>.</span><span class=nx>mutate</span><span class=p>({</span>
-          <span class=nx>mutation</span><span class=o>:</span> <span class=nx>ADD_TODO</span><span class=p>,</span>
-          <span class=nx>variables</span><span class=o>:</span> <span class=p>{</span>
-            <span class=p>...</span><span class=k>this</span><span class=p>.</span><span class=nx>newTodo</span>
-          <span class=p>},</span>
-          <span class=c1>// кэш аполло позволяет манипулировать данными из этого кэша, вне зависимости
-</span><span class=c1></span>          <span class=c1>// от того, в каком компоненте выполняется код. Здесь в качестве ответа
-</span><span class=c1></span>          <span class=c1>// сервера мы получаем новую запись Todo. Добавляем её в кэш, записываем
-</span><span class=c1></span>          <span class=c1>// обратно по запросу GET_TODO_LIST, таким образом переменная Apollo
-</span><span class=c1></span>          <span class=c1>// сам разошлет всем подписчикам данного запроса измененные данные. В нашем
-</span><span class=c1></span>          <span class=c1>// случае подписчиком является переменная todoList в компоненте index.vue
-</span><span class=c1></span>          <span class=nx>update</span><span class=o>:</span> <span class=p>(</span><span class=nx>store</span><span class=p>,</span> <span class=p>{</span> <span class=nx>data</span><span class=o>:</span> <span class=p>{</span> <span class=nx>addTodo</span> <span class=p>}</span> <span class=p>})</span> <span class=p>=&gt;</span> <span class=p>{</span>
-            <span class=c1>// если в кэше отсутствуют данные по запросу, то бросится исключение
-</span><span class=c1></span>            <span class=kr>const</span> <span class=nx>todoListData</span> <span class=o>=</span> <span class=nx>store</span><span class=p>.</span><span class=nx>readQuery</span><span class=p>({</span> <span class=nx>query</span><span class=o>:</span> <span class=nx>GET_TODO_LIST</span> <span class=p>})</span>
-            <span class=nx>todoListData</span><span class=p>.</span><span class=nx>todoList</span><span class=p>.</span><span class=nx>unshift</span><span class=p>(</span><span class=nx>addTodo</span><span class=p>)</span>
-            <span class=nx>store</span><span class=p>.</span><span class=nx>writeQuery</span><span class=p>({</span> <span class=nx>query</span><span class=o>:</span> <span class=nx>GET_CATEGORIES</span><span class=p>,</span> <span class=nx>data</span><span class=o>:</span> <span class=nx>todoListData</span> <span class=p>})</span>
-
-            <span class=kr>const</span> <span class=nx>categoriesData</span> <span class=o>=</span> <span class=nx>store</span><span class=p>.</span><span class=nx>readQuery</span><span class=p>({</span> <span class=nx>query</span><span class=o>:</span> <span class=nx>GET_CATEGORIES</span> <span class=p>})</span>
-            <span class=c1>// В списке категорий ищем категорию новой записи Todo. При неудачном поиске
-</span><span class=c1></span>            <span class=c1>// добавляем в кэш. Таким образом селектор категорий всегда остается
-</span><span class=c1></span>            <span class=c1>// в актуальном состоянии
-</span><span class=c1></span>            <span class=kr>const</span> <span class=nx>category</span> <span class=o>=</span> <span class=nx>categoriesData</span><span class=p>.</span><span class=nx>categories</span><span class=p>.</span><span class=nx>find</span><span class=p>(</span>
-              <span class=nx>c</span> <span class=p>=&gt;</span> <span class=nx>c</span><span class=p>.</span><span class=nx>name</span> <span class=o>===</span> <span class=nx>addTodo</span><span class=p>.</span><span class=nx>category</span><span class=p>.</span><span class=nx>name</span>
-            <span class=p>)</span>
-            <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>category</span><span class=p>)</span> <span class=p>{</span>
-              <span class=nx>categoriesData</span><span class=p>.</span><span class=nx>categories</span><span class=p>.</span><span class=nx>push</span><span class=p>(</span><span class=nx>addTodo</span><span class=p>.</span><span class=nx>category</span><span class=p>)</span>
-              <span class=nx>store</span><span class=p>.</span><span class=nx>writeQuery</span><span class=p>({</span> <span class=nx>query</span><span class=o>:</span> <span class=nx>GET_CATEGORIES</span><span class=p>,</span> <span class=nx>data</span><span class=o>:</span> <span class=nx>categoriesData</span> <span class=p>})</span>
-            <span class=p>}</span>
-          <span class=p>}</span>
-        <span class=p>})</span>
-        <span class=p>.</span><span class=nx>then</span><span class=p>(()</span> <span class=p>=&gt;</span> <span class=p>{</span>
-          <span class=k>this</span><span class=p>.</span><span class=nx>clear</span><span class=p>()</span>
-          <span class=k>this</span><span class=p>.</span><span class=nx>loading</span> <span class=o>=</span> <span class=kc>false</span>
-          <span class=k>this</span><span class=p>.</span><span class=nx>$refs</span><span class=p>.</span><span class=nx>form</span><span class=p>.</span><span class=nx>reset</span><span class=p>()</span> <span class=c1>// сброс валидации формы
-</span><span class=c1></span>        <span class=p>})</span>
+  <span class=c1>// с этого момента изменения по-серьезнее
+</span><span class=c1></span>  <span class=nx>methods</span><span class=o>:</span> <span class=p>{</span>
+    <span class=nx>toggle</span><span class=p>()</span> <span class=p>{</span>
+      <span class=c1>// Для запроса который возвращает измененный элемент не обязательно
+</span><span class=c1></span>      <span class=c1>// вручную прописывать функцию update. Apollo сам найдёт в каких
+</span><span class=c1></span>      <span class=c1>// запросах &#34;участвует&#34; измененная запись, и разошлет всем подписчикам
+</span><span class=c1></span>      <span class=c1>// измененный объект. В нашем случае это запрос в компоненте index.vue
+</span><span class=c1></span>      <span class=c1>// на получение списка Todo
+</span><span class=c1></span>      <span class=k>this</span><span class=p>.</span><span class=nx>$apollo</span><span class=p>.</span><span class=nx>mutate</span><span class=p>({</span>
+        <span class=nx>mutation</span><span class=o>:</span> <span class=nx>TOGGLE_TODO</span><span class=p>,</span>
+        <span class=nx>variables</span><span class=o>:</span> <span class=p>{</span>
+          <span class=nx>todoId</span><span class=o>:</span> <span class=k>this</span><span class=p>.</span><span class=nx>todo</span><span class=p>.</span><span class=nx>id</span>
+        <span class=p>}</span>
+      <span class=p>})</span>
     <span class=p>},</span>
-    <span class=nx>clear</span><span class=p>()</span> <span class=p>{</span>
-      <span class=k>this</span><span class=p>.</span><span class=nx>newTodo</span> <span class=o>=</span> <span class=p>{</span>
-        <span class=nx>title</span><span class=o>:</span> <span class=s1>&#39;&#39;</span><span class=p>,</span>
-        <span class=nx>text</span><span class=o>:</span> <span class=s1>&#39;&#39;</span><span class=p>,</span>
-        <span class=nx>dueDate</span><span class=o>:</span> <span class=s1>&#39;&#39;</span><span class=p>,</span>
-        <span class=nx>category</span><span class=o>:</span> <span class=s1>&#39;&#39;</span>
-      <span class=p>}</span>
+    <span class=nx>remove</span><span class=p>()</span> <span class=p>{</span>
+      <span class=c1>// функция update не видит контекста this
+</span><span class=c1></span>      <span class=kr>const</span> <span class=nx>todoId</span> <span class=o>=</span> <span class=k>this</span><span class=p>.</span><span class=nx>todo</span><span class=p>.</span><span class=nx>id</span>
+      <span class=k>this</span><span class=p>.</span><span class=nx>$apollo</span><span class=p>.</span><span class=nx>mutate</span><span class=p>({</span>
+        <span class=nx>mutation</span><span class=o>:</span> <span class=nx>REMOVE_TODO</span><span class=p>,</span>
+        <span class=nx>variables</span><span class=o>:</span> <span class=p>{</span>
+          <span class=nx>todoId</span>
+        <span class=p>},</span>
+        <span class=nx>update</span><span class=p>(</span><span class=nx>store</span><span class=p>,</span> <span class=p>{</span> <span class=nx>data</span><span class=o>:</span> <span class=p>{</span> <span class=nx>removeTodo</span> <span class=p>}</span> <span class=p>})</span> <span class=p>{</span>
+          <span class=k>if</span> <span class=p>(</span><span class=o>!</span><span class=nx>removeTodo</span><span class=p>)</span> <span class=k>return</span>
+          <span class=c1>// В случае успешного удаления удаляем текущий элемент из кэша
+</span><span class=c1></span>          <span class=kr>const</span> <span class=nx>data</span> <span class=o>=</span> <span class=nx>store</span><span class=p>.</span><span class=nx>readQuery</span><span class=p>({</span> <span class=nx>query</span><span class=o>:</span> <span class=nx>GET_TODO_LIST</span> <span class=p>})</span>
+          <span class=nx>data</span><span class=p>.</span><span class=nx>todoList</span> <span class=o>=</span> <span class=nx>data</span><span class=p>.</span><span class=nx>todoList</span><span class=p>.</span><span class=nx>filter</span><span class=p>(</span><span class=nx>todo</span> <span class=p>=&gt;</span> <span class=nx>todo</span><span class=p>.</span><span class=nx>id</span> <span class=o>!==</span> <span class=nx>todoId</span><span class=p>)</span>
+          <span class=c1>// Самоуничтожаемся!
+</span><span class=c1></span>          <span class=nx>store</span><span class=p>.</span><span class=nx>writeQuery</span><span class=p>({</span> <span class=nx>query</span><span class=o>:</span> <span class=nx>GET_TODO_LIST</span><span class=p>,</span> <span class=nx>data</span> <span class=p>})</span>
+        <span class=p>}</span>
+      <span class=p>})</span>
     <span class=p>}</span>
   <span class=p>}</span>
 <span class=p>}</span>
 <span class=p>&lt;/</span><span class=nt>script</span><span class=p>&gt;</span>
-</code></pre></div><p>Проверим, что у нас получилось</p>
+</code></pre></div>
+</section>
+</details>
+<p>Проверим, что у нас получилось</p>
 <details>
 <summary><strong>Результат</strong></summary>
 <section>
-<img src=xy3e_-efabaavt-hjfy68fb_ftw.gif alt>
+<figure class=gallery-image style=flex-grow:203;flex-basis:487px>
+<a href=/p/nuxt-django-graphql/xy3e_-efabaavt-hjfy68fb_ftw.gif data-size=918x452>
+<img src=/p/nuxt-django-graphql/xy3e_-efabaavt-hjfy68fb_ftw.gif width=918 height=452 srcset="/p/nuxt-django-graphql/xy3e_-efabaavt-hjfy68fb_ftw_hu1054838543e688952e9935adee432a9a_235906_480x0_resize_box.gif 480w, /p/nuxt-django-graphql/xy3e_-efabaavt-hjfy68fb_ftw_hu1054838543e688952e9935adee432a9a_235906_1024x0_resize_box.gif 1024w" loading=lazy>
+</a>
+</figure>
 </section>
 </details>
 <h2 id=заключение>Заключение</h2>
@@ -1440,17 +1484,17 @@ rm -rf .git
 <li><a href=#создание-проекта-и-окружения>Создание проекта и окружения</a></li>
 <li><a href=#настройка>Настройка</a>
 <ol>
-<li><a href=#перенос-managepy><strong>Перенос manage.py</strong></a></li>
-<li><a href=#добавление-graphene_django><strong>Добавление graphene_django</strong></a></li>
-<li><a href=#проверяем-работоспособность><strong>Проверяем работоспособность</strong></a></li>
-<li><a href=#настройка-graphene><strong>Настройка graphene</strong></a></li>
+<li><a href=#перенос-managepy>Перенос manage.py</a></li>
+<li><a href=#добавление-graphene_django>Добавление graphene_django</a></li>
+<li><a href=#проверяем-работоспособность>Проверяем работоспособность</a></li>
+<li><a href=#настройка-graphene>Настройка graphene</a></li>
 </ol>
 </li>
 <li><a href=#приложение-todo_list>Приложение todo_list</a>
 <ol>
-<li><a href=#создание-приложения><strong>Создание приложения</strong></a></li>
-<li><a href=#создание-graphql-api><strong>Создание GraphQL API</strong></a></li>
-<li><a href=#проверка-api><strong>Проверка API</strong></a></li>
+<li><a href=#создание-приложения>Создание приложения</a></li>
+<li><a href=#создание-graphql-api>Создание GraphQL API</a></li>
+<li><a href=#проверка-api>Проверка API</a></li>
 </ol>
 </li>
 </ol>
