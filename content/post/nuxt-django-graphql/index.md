@@ -1512,11 +1512,10 @@ export default {
 
 Проверим, что у нас получилось
 
-{{< detail-tag "**Результат**" `
-
+{{< details "**Результат**" >}}
 ![](xy3e_-efabaavt-hjfy68fb_ftw.gif)
+{{< /details >}}
 
-` >}}
 
 ## Заключение
 
