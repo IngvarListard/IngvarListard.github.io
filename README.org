@@ -1,0 +1,12 @@
+* Hugo blog
+
+[[https://gohugo.io/getting-started/][Документация Hugo]]
+
+
+Запуск dev сервера
+#+begin_src bash
+hugo server -D
+#+end_src
+
+* Заметки
+Левое меню редактируется в файле ~config.yaml~
