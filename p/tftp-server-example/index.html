@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Проблема На досуге ради интереса и большого потенциала, решил прошить свой роутер на открытую прошивку OpenWrt. Прошиться было очень просто - в админке роутера, в разделе Firmware просто выбрать бинарник с прошивкой, и дождаться загрузки роутера. После наката OpenWrt с досадой обнаружил, что для подключения к интернету на моем провайдере используется VPN-протокол L2TP. Однако в прошивке OpenWrt для роутера Archer C6 по-умолчанию не были предустановлены пакеты для работы по этому протоколу.'><title>TFTP-сервер напримере прошивки TPLink Archer C6</title>
+
+<link rel='canonical' href='https://ingvarlistard.github.io/p/tftp-server-example/'>
+
+<link rel="stylesheet" href="/scss/style.min.749341a908b08a9de4ebb5a55fd8f92be836a2d6953a0e8bdedbdb544bfa992b.css"><meta property='og:title' content='TFTP-сервер напримере прошивки TPLink Archer C6'>
+<meta property='og:description' content='Проблема На досуге ради интереса и большого потенциала, решил прошить свой роутер на открытую прошивку OpenWrt. Прошиться было очень просто - в админке роутера, в разделе Firmware просто выбрать бинарник с прошивкой, и дождаться загрузки роутера. После наката OpenWrt с досадой обнаружил, что для подключения к интернету на моем провайдере используется VPN-протокол L2TP. Однако в прошивке OpenWrt для роутера Archer C6 по-умолчанию не были предустановлены пакеты для работы по этому протоколу.'>
+<meta property='og:url' content='https://ingvarlistard.github.io/p/tftp-server-example/'>
+<meta property='og:site_name' content='Handy Code'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-01-01T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-01-01T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="TFTP-сервер напримере прошивки TPLink Archer C6">
+<meta name="twitter:description" content="Проблема На досуге ради интереса и большого потенциала, решил прошить свой роутер на открытую прошивку OpenWrt. Прошиться было очень просто - в админке роутера, в разделе Firmware просто выбрать бинарник с прошивкой, и дождаться загрузки роутера. После наката OpenWrt с досадой обнаружил, что для подключения к интернету на моем провайдере используется VPN-протокол L2TP. Однако в прошивке OpenWrt для роутера Archer C6 по-умолчанию не были предустановлены пакеты для работы по этому протоколу.">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4HM7JZBCS"></script>
+<script>
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+	gtag('config', 'G-Y4HM7JZBCS', { 'anonymize_ip': false });
+}
+</script>
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Назад</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%D0%B7%D0%B0%D0%BC%D0%B5%D1%82%D0%BA%D0%B8/" >
+                Заметки
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/tftp-server-example/">TFTP-сервер напримере прошивки TPLink Archer C6</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 01, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    Время чтения: 5 мин.
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="проблема">Проблема</h2>
+<p>На досуге ради интереса и большого потенциала, решил прошить свой роутер на открытую прошивку <a class="link" href="https://openwrt.org"  target="_blank" rel="noopener"
+    >OpenWrt</a>. Прошиться было очень просто - в админке роутера, в разделе Firmware просто выбрать бинарник с прошивкой, и дождаться загрузки роутера. После наката OpenWrt с досадой обнаружил, что для подключения к интернету на моем провайдере используется VPN-протокол L2TP. Однако в прошивке OpenWrt для роутера Archer C6 по-умолчанию не были предустановлены пакеты для работы по этому протоколу. Для того, чтобы установить их, нужен интернет, а чтобы подключиться к интернету нужен L2TP. Замкнутый круг. Помимо установки зависимостей из репозиториев есть возможность установить все пакеты вручную с помощью ssh, scp, но мне показалось это муторным, и я просто решил вернуть старую прошивку.</p>
+<p>Для начала, я попробовал сделать также, как и при прошивке OpenWrt - через веб интерфейс выбрать файл и прошиться на сток. Несмотря на то, что админка предоставила такую возможность, роутер после сего действа просто умер. После загрузки загорался индикатор питания, но ничего не происходило.</p>
+<p>Что же, я знал на что иду, но попытка не пытка. Так я пришел к необходимости восстановления роутера посредством TFTP-сервера из recovery mode&rsquo;a TPLink Archer C6.</p>
+<p>Ниже приведу пошаговую инструкцию по настройке TFTP-сервера и прошивки роутера.</p>
+<h2 id="tftp">TFTP?</h2>
+<p>До того как встретился с необходимостью прошивки роутера я ничего не знал про этот протокол, в том числе и про его существование. Но пришлось познакомиться.</p>
+<p><strong>TFTP</strong> (Trivial File Transfer Protocol) - как видно из названия это элементарнейший протокол обмена файлами. Из интересных команд у него всего get - получить файл и put - отправить файл. Однако из-за своего минимализма и простоты реализации он идеально подходит для встраиваемых систем с ограниченым объемом памяти.</p>
+<h2 id="решение">Решение</h2>
+<h3 id="что-будем-делать">Что будем делать</h3>
+<p>Для восстановления роутера с помощью recovery mode&rsquo;a необходимо предоставить возможность роутеру в recovery mode загрузить файл прошивки с tftp-сервера. tftp-сервер должен находиться на определенном IP и порту. Итого, если кратко:</p>
+<ul>
+<li>на ПК вручную прописать адрес 192.168.0.66 (ip по которому ходит роутер на tftp-сервер)</li>
+<li>подключить роутер к ПК по ethernet кабелю</li>
+<li>установить и запустить tftp сервер на порту 69</li>
+<li>дождаться пока роутер сам себя прошьет</li>
+</ul>
+<h3 id="пререквизиты">Пререквизиты</h3>
+<p>Я использую Manjaro Linux с KDE, однако с небольшими изменениями инструкция должна подходить для любого дистрибутива Linux, и скорее всего MacOS. Итого, что нужно:</p>
+<ul>
+<li>ПК/Ноут на (Arch-based) Linux</li>
+<li>пачкорд</li>
+<li>роутер</li>
+<li>терпение</li>
+</ul>
+<h3 id="установка-и-настройка-tftp-сервера">Установка и настройка TFTP-сервера</h3>
+<p>В качестве реализации сервера я выбрал tftp-hpa как рекомендует <a class="link" href="https://wiki.archlinux.org/title/TFTP#tftp-hpa"  target="_blank" rel="noopener"
+    >ArchWiki</a>.</p>
+<ol>
+<li>Установить tftp-сервер</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo pacman -S tftp-hpa
+</span></span></code></pre></div><ol start="2">
+<li>Скорректировать конфиг tftp-hpa по пути /etc/conf.d/tftpd, чтобы он содержал следующее:</li>
+</ol>
+<pre tabindex="0"><code>TFTPD_ARGS=&#34;--secure /srv/tftp/ --create --verbosity 5 --address 0.0.0.0:69 --username=tftp&#34;
+</code></pre><p>где:</p>
+<ul>
+<li><code>/srv/tftp/</code></li>
+<li>путь то директории где будет лежать наша прошивка <br></li>
+<li><code>--create</code> - запустить сервер с возможностью создавать файлы</li>
+<li><code>--verbosity 5</code> - писать DEBUG логи в syslog</li>
+<li><code>--adress</code> - хост и порт на котором будет запущен сервер. Порт ставим по-умолчанию - 69</li>
+</ul>
+<ol start="3">
+<li>Запустить systemd демон tftp-сервера:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo systemctl start tftpd
+</span></span></code></pre></div><ol start="4">
+<li>Чтобы не заморачиваться с пользователями, правами, группами &ndash; разрешить полный доступ к директории /srv/tftp/</li>
+</ol>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo chmod -R <span class="m">777</span> /srv/tftp
+</span></span></code></pre></div><ol start="5">
+<li>Загрузить прошивкув соответствии с ревизией из поста <a class="link" href="https://4pda.to/forum/index.php?showtopic=976692&amp;view=findpost&amp;p=121017717"  target="_blank" rel="noopener"
+    >https://4pda.to/forum/index.php?showtopic=976692&view=findpost&p=121017717</a>
+Для начала попробуйте самую старую, для ревизии 2, например, это Archer <code>C6(RU)_V2_20190115.zip</code>. Если не получилось - поочередно поднимайте версию до тех пор, пока не получится. Мне потребовалось 2 попытки, таким образом, рабочим образом для моего роутера была <code>Archer C6(RU)_V2_200508.zip</code></li>
+<li>Проверить, что сервер может отдавать файлы
+Пункт необходим из-за очень скудных логов сервера tftp.</li>
+</ol>
+<ul>
+<li>запустить tftp клиент</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">tftp
+</span></span></code></pre></div><ul>
+<li>после успешного подключения появится приглашение командной строки. Выполнить команду загрузки файла ниже, и нажать enter:</li>
+</ul>
+<pre tabindex="0"><code>get ArcherC6v2_tp_recovery.bin
+</code></pre><ul>
+<li>в случае успеха вы не получите никакого соощбения, но в директории в которой была запущена команда появится наш файл <code>ArcherC6v2_tp_recovery.bin</code></li>
+<li>если произошла ошибка permission denied, выполнить</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo chmod <span class="m">777</span> ArcherC6v2_tp_recovery.bin
+</span></span></code></pre></div><ul>
+<li>повторно выполнить команду <code>get ArcherC6v2_tp_recovery.bin</code></li>
+<li>если появилась ошибка file not found, то либо вы забыли исправить конфиг (см п.2), либо выполняете на отличном от arch-based дистрибутиве (конфиг должен лежать в другом месте)</li>
+</ul>
+<h3 id="настройка-проводного-подключения">Настройка проводного подключения</h3>
+<p>Как было упомянуто выше, необходимо сделать так, чтобы TFTP-сервер был в сети роутера по определенному IP и на определенном порту. Для этого настроим проводное подключение.</p>
+<ol>
+<li>
+<p>Подключить включенный роутер к ПК с помощью ethernet кабеля. В роутер воткнуть в любой порт КРОМЕ WAN. Если в настройках сети у вас отсутствует проводное соединение, по после подключения оно должно автоматически создасться. Желательно, чтобы на момент прошивки к ПК был подключен только один ethernet кабель для предупреждения возможных коллизий.</p>
+</li>
+<li>
+<p>Открыть настройки проводного соединения (которое отвечает за подключение к роутеру). Я использую KDE, скриншоты будут оттуда. Выполнить следующие настройки:</p>
+<ul>
+<li>на вкладке Wired установить значение поля Link negotiation в Automatic</li>
+<li>на кладке ipv4:
+<ul>
+<li>Method: Manual</li>
+<li>Нажать кнопку добавить в таблице. Добавить адресс 192.168.0.66, маска 255.255.255.0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<p>Сохранить. Подключиться.</p>
+<p>Если всё сделано правильно, то соединение должно пройти корректно.</p>
+ 
+
+<details>
+    <summary>Скриншоты</summary>
+    <section>
+        <figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 316; 
+			flex-basis: 759px"
+	>
+	<a href="/p/tftp-server-example/wired.jpeg" data-size="1651x522">
+		<img src="/p/tftp-server-example/wired.jpeg"
+			width="1651"
+			height="522"
+			srcset="/p/tftp-server-example/wired_hu823847525e4c72df1ff227fa40beac75_111707_480x0_resize_q75_box.jpeg 480w, /p/tftp-server-example/wired_hu823847525e4c72df1ff227fa40beac75_111707_1024x0_resize_q75_box.jpeg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+<figure 
+	
+		class="gallery-image" 
+		style="
+			flex-grow: 316; 
+			flex-basis: 759px"
+	>
+	<a href="/p/tftp-server-example/ipv4.jpeg" data-size="1651x522">
+		<img src="/p/tftp-server-example/ipv4.jpeg"
+			width="1651"
+			height="522"
+			srcset="/p/tftp-server-example/ipv4_hu823847525e4c72df1ff227fa40beac75_120055_480x0_resize_q75_box.jpeg 480w, /p/tftp-server-example/ipv4_hu823847525e4c72df1ff227fa40beac75_120055_1024x0_resize_q75_box.jpeg 1024w"
+			loading="lazy"
+			>
+	</a>
+	
+</figure>
+    </section>
+</details>
+
+<h3 id="прошивка">Прошивка</h3>
+<p>Для того, чтобы мы могли понять, пробует ли роутер подключиться к TFTP-серверу, необходимо подключиться к DEBUG логам TFTP-сервера с помощью journalctl. Как смотреть DEBUG логи по отдельному юниту я разбираться не стал, поэтому просто подключимся к стриму и будем ждать сообщений помеченных как <code>in.tftpd</code>. Для этого в терминале выполнить:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo journalctl -f
+</span></span></code></pre></div><p>И прошиваем.</p>
+<ol>
+<li>Выключить роутер. Соединение пропадет. В окне с логами будет много логов от network manager&rsquo;a.</li>
+<li>Зажать кнопку reset на роутере, одновременно включить роутер. Держать reset до тех пор, пока не загорится индикатор замка.</li>
+<li>Наблюдать за логами journalctl. Если все сделано правильно, должно появиться сообщение вроде такого:</li>
+</ol>
+<pre tabindex="0"><code>дек 31 20:17:20 username-pc in.tftpd[14732]: *RRQ from 192.168.0.86 filename ArcherC6v2_tp_recovery.bin*
+</code></pre><p>Если сообщение появилось - радуйтесь. Роутер перезагрузится. Не трогайте его 5-7 минут. Если по прошествии этого времени остался гореть только самый левый индикатор, выберите другую версию прошивки и повторите п11.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Также рекомендуем</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/youtube-tricks/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">YouTube Tricks - Как пользоваться YouTube с минимумом потерь</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-ingvarlistard-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2021 - 
+        
+        2024 Handy Code
+    </section>
+    
+    <section class="powerby">
+        Создано при помощи <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Тема <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.6.0">Stack</a></b>, дизайн <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Содержание</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#проблема">Проблема</a></li>
+    <li><a href="#tftp">TFTP?</a></li>
+    <li><a href="#решение">Решение</a>
+      <ol>
+        <li><a href="#что-будем-делать">Что будем делать</a></li>
+        <li><a href="#пререквизиты">Пререквизиты</a></li>
+        <li><a href="#установка-и-настройка-tftp-сервера">Установка и настройка TFTP-сервера</a></li>
+        <li><a href="#настройка-проводного-подключения">Настройка проводного подключения</a></li>
+        <li><a href="#прошивка">Прошивка</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
