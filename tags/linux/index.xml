@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Linux on Handy Code</title>
+    <link>https://ingvarlistard.github.io/tags/linux/</link>
+    <description>Recent content in Linux on Handy Code</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ru-ru</language>
+    <lastBuildDate>Wed, 17 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://ingvarlistard.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DavMail как служба systemd</title>
+      <link>https://ingvarlistard.github.io/p/davmail-as-systemd-service/</link>
+      <pubDate>Wed, 17 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>https://ingvarlistard.github.io/p/davmail-as-systemd-service/</guid>
+      <description>Введение За последние 3 года я несколько раз прибегал к использованию davmail и конкретной статьи https://semanticlab.net/desktop/e-mail/linux/sysadmin/Managing-DavMail-with-systemd-and-preventing-service-timeouts-after-network-reconnects/. Поэтому решил сделать перевод в свои заметки и опубликовать здесь.&#xA;DavMail обеспечивает доступ к серверам Exchange по стандартным протоколам, таким как IMAP, SMTP и Caldav. Таким образом, он позволяет пользоваться корпоративной электронной почтой с помощью вашего любимого почтового клиента, например Mail Spring, Thunderbird, Geary.&#xA;Ниже описано, как автоматизировать запуск DavMail посредством создания systemd-сервиса и обеспечить его работоспособность даже после переподключения к сети.</description>
+    </item>
+  </channel>
+</rss>

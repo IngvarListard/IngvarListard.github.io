@@ -6,8 +6,15 @@
     <description>Recent content in Заметки on Handy Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>ru-ru</language>
-    <lastBuildDate>Mon, 01 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 17 Jan 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ingvarlistard.github.io/categories/%D0%B7%D0%B0%D0%BC%D0%B5%D1%82%D0%BA%D0%B8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>DavMail как служба systemd</title>
+      <link>https://ingvarlistard.github.io/p/davmail-as-systemd-service/</link>
+      <pubDate>Wed, 17 Jan 2024 00:00:00 +0000</pubDate>
+      <guid>https://ingvarlistard.github.io/p/davmail-as-systemd-service/</guid>
+      <description>Введение За последние 3 года я несколько раз прибегал к использованию davmail и конкретной статьи https://semanticlab.net/desktop/e-mail/linux/sysadmin/Managing-DavMail-with-systemd-and-preventing-service-timeouts-after-network-reconnects/. Поэтому решил сделать перевод в свои заметки и опубликовать здесь.&#xA;DavMail обеспечивает доступ к серверам Exchange по стандартным протоколам, таким как IMAP, SMTP и Caldav. Таким образом, он позволяет пользоваться корпоративной электронной почтой с помощью вашего любимого почтового клиента, например Mail Spring, Thunderbird, Geary.&#xA;Ниже описано, как автоматизировать запуск DavMail посредством создания systemd-сервиса и обеспечить его работоспособность даже после переподключения к сети.</description>
+    </item>
     <item>
       <title>TFTP-сервер напримере прошивки TPLink Archer C6</title>
       <link>https://ingvarlistard.github.io/p/tftp-server-example/</link>
