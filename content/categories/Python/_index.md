@@ -4,6 +4,6 @@ description: "Язык программирования python"
 slug: "python"
 image: "python.png"
 style:
-    background: "#2a9d8f"
+    background: "#294ef2"
     color: "#fff"
 ---
