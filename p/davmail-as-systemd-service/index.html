@@ -35,16 +35,25 @@ DavMail обеспечивает доступ к серверам Exchange по 
 <meta name="twitter:description" content="Введение За последние 3 года я несколько раз прибегал к использованию davmail и конкретной статьи https://semanticlab.net/desktop/e-mail/linux/sysadmin/Managing-DavMail-with-systemd-and-preventing-service-timeouts-after-network-reconnects/. Поэтому решил сделать перевод в свои заметки и опубликовать здесь.
 DavMail обеспечивает доступ к серверам Exchange по стандартным протоколам, таким как IMAP, SMTP и Caldav. Таким образом, он позволяет пользоваться корпоративной электронной почтой с помощью вашего любимого почтового клиента, например Mail Spring, Thunderbird, Geary.
 Ниже описано, как автоматизировать запуск DavMail посредством создания systemd-сервиса и обеспечить его работоспособность даже после переподключения к сети.">
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4HM7JZBCS"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-Y4HM7JZBCS', { 'anonymize_ip': false });
-}
-</script>
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4HM7JZBCS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-Y4HM7JZBCS');
+        }
+      </script>
+    
+  
+
 
     </head>
     <body class="
@@ -257,6 +266,18 @@ if (!doNotTrack) {
                 
                     
 <article class="">
+    <a href="/p/podman-freeipa/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Как запустить и настроить FreeIPA сервер в Podman контейнере</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
     <a href="/p/tftp-server-example/">
         
         
@@ -337,7 +358,7 @@ if (!doNotTrack) {
         
             2021 - 
         
-        2024 Handy Code
+        2025 Handy Code
     </section>
     
     <section class="powerby">

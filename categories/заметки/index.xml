@@ -4,10 +4,17 @@
     <title>Заметки on Handy Code</title>
     <link>https://ingvarlistard.github.io/categories/%D0%B7%D0%B0%D0%BC%D0%B5%D1%82%D0%BA%D0%B8/</link>
     <description>Recent content in Заметки on Handy Code</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>ru-ru</language>
-    <lastBuildDate>Wed, 17 Jan 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 10 Feb 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://ingvarlistard.github.io/categories/%D0%B7%D0%B0%D0%BC%D0%B5%D1%82%D0%BA%D0%B8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Как запустить и настроить FreeIPA сервер в Podman контейнере</title>
+      <link>https://ingvarlistard.github.io/p/podman-freeipa/</link>
+      <pubDate>Mon, 10 Feb 2025 00:00:00 +0000</pubDate>
+      <guid>https://ingvarlistard.github.io/p/podman-freeipa/</guid>
+      <description>Шаги по настройке 1. Запуск команды для настройки образа Запустим контейнер командой:&#xA;podman run --name freeipa-server-container -ti \ -h ipa.example.test --read-only \ -v /home/&amp;lt;USER&amp;gt;/.docker/freeipa/data:/data:Z freeipa/freeipa-server:fedora-41-4.12.2 2. Прохождение процесса настройки сервера Пройдите через процесс настройки сервера.&#xA;3. Остановка процесса и подготовка Docker Compose файла Остановите процесс (Ctrl + C) и подготовьте docker-compose.yml файл, который будет использовать данные из /home/&amp;lt;USER&amp;gt;/.docker/freeipa/data.&#xA;Мой docker-compose.yml файл Обратите внимание, что имя хоста (hostname) должно совпадать с именем, указанным в первой команде.</description>
+    </item>
     <item>
       <title>DavMail как служба systemd</title>
       <link>https://ingvarlistard.github.io/p/davmail-as-systemd-service/</link>

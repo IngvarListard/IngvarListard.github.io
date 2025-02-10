@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+    <head>
+<script type="text/javascript" >
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+    ym(96256348, "init", {
+         clickmap:true,
+         trackLinks:true,
+         accurateTrackBounce:true
+    });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/96256348" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+
+<meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Шаги по настройке 1. Запуск команды для настройки образа Запустим контейнер командой:
+podman run --name freeipa-server-container -ti \ -h ipa.example.test --read-only \ -v /home/&amp;lt;USER&amp;gt;/.docker/freeipa/data:/data:Z freeipa/freeipa-server:fedora-41-4.12.2 2. Прохождение процесса настройки сервера Пройдите через процесс настройки сервера.
+3. Остановка процесса и подготовка Docker Compose файла Остановите процесс (Ctrl &#43; C) и подготовьте docker-compose.yml файл, который будет использовать данные из /home/&amp;lt;USER&amp;gt;/.docker/freeipa/data.
+Мой docker-compose.yml файл Обратите внимание, что имя хоста (hostname) должно совпадать с именем, указанным в первой команде.'><title>Как запустить и настроить FreeIPA сервер в Podman контейнере</title>
+
+<link rel='canonical' href='https://ingvarlistard.github.io/p/podman-freeipa/'>
+
+<link rel="stylesheet" href="/scss/style.min.749341a908b08a9de4ebb5a55fd8f92be836a2d6953a0e8bdedbdb544bfa992b.css"><meta property='og:title' content='Как запустить и настроить FreeIPA сервер в Podman контейнере'>
+<meta property='og:description' content='Шаги по настройке 1. Запуск команды для настройки образа Запустим контейнер командой:
+podman run --name freeipa-server-container -ti \ -h ipa.example.test --read-only \ -v /home/&amp;lt;USER&amp;gt;/.docker/freeipa/data:/data:Z freeipa/freeipa-server:fedora-41-4.12.2 2. Прохождение процесса настройки сервера Пройдите через процесс настройки сервера.
+3. Остановка процесса и подготовка Docker Compose файла Остановите процесс (Ctrl &#43; C) и подготовьте docker-compose.yml файл, который будет использовать данные из /home/&amp;lt;USER&amp;gt;/.docker/freeipa/data.
+Мой docker-compose.yml файл Обратите внимание, что имя хоста (hostname) должно совпадать с именем, указанным в первой команде.'>
+<meta property='og:url' content='https://ingvarlistard.github.io/p/podman-freeipa/'>
+<meta property='og:site_name' content='Handy Code'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-10T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-10T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Как запустить и настроить FreeIPA сервер в Podman контейнере">
+<meta name="twitter:description" content="Шаги по настройке 1. Запуск команды для настройки образа Запустим контейнер командой:
+podman run --name freeipa-server-container -ti \ -h ipa.example.test --read-only \ -v /home/&amp;lt;USER&amp;gt;/.docker/freeipa/data:/data:Z freeipa/freeipa-server:fedora-41-4.12.2 2. Прохождение процесса настройки сервера Пройдите через процесс настройки сервера.
+3. Остановка процесса и подготовка Docker Compose файла Остановите процесс (Ctrl &#43; C) и подготовьте docker-compose.yml файл, который будет использовать данные из /home/&amp;lt;USER&amp;gt;/.docker/freeipa/data.
+Мой docker-compose.yml файл Обратите внимание, что имя хоста (hostname) должно совпадать с именем, указанным в первой команде.">
+  
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Y4HM7JZBCS"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-Y4HM7JZBCS');
+        }
+      </script>
+    
+  
+
+
+    </head>
+    <body class="
+    article-page has-toc
+">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex 
+    
+        extended
+    
+">
+    
+        <div id="article-toolbar">
+            <a href="/" class="back-home">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+                <span>Назад</span>
+            </a>
+        </div>
+    
+<main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%D0%B7%D0%B0%D0%BC%D0%B5%D1%82%D0%BA%D0%B8/" style="background-color: #f7bd59; color: #616060;">
+                Заметки
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/podman-freeipa/">Как запустить и настроить FreeIPA сервер в Podman контейнере</a>
+    </h2>
+
+    
+
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 10, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    Время чтения: 2 мин.
+                </time>
+            </div>
+        
+    </footer>
+    
+</div>
+</header>
+
+    <section class="article-content">
+    <h2 id="шаги-по-настройке">Шаги по настройке</h2>
+<h3 id="1-запуск-команды-для-настройки-образа">1. Запуск команды для настройки образа</h3>
+<p>Запустим контейнер командой:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">podman run --name freeipa-server-container -ti <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -h ipa.example.test --read-only <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    -v /home/&lt;USER&gt;/.docker/freeipa/data:/data:Z freeipa/freeipa-server:fedora-41-4.12.2
+</span></span></code></pre></div><h3 id="2-прохождение-процесса-настройки-сервера">2. Прохождение процесса настройки сервера</h3>
+<p>Пройдите через процесс настройки сервера.</p>
+<h3 id="3-остановка-процесса-и-подготовка-docker-compose-файла">3. Остановка процесса и подготовка Docker Compose файла</h3>
+<p>Остановите процесс (Ctrl + C) и подготовьте <code>docker-compose.yml</code> файл, который будет использовать данные из <code>/home/&lt;USER&gt;/.docker/freeipa/data</code>.</p>
+<h4 id="мой-docker-composeyml-файл">Мой <code>docker-compose.yml</code> файл</h4>
+<p>Обратите внимание, что имя хоста (<code>hostname</code>) должно совпадать с именем, указанным в первой команде.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">freeipa</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">freeipa/freeipa-server:fedora-41-4.12.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">freeipa-server-container-compose</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l">ipa.example.test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">read_only</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">PASSWORD=YourStrongAdminPassword123</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">IPA_DOMAIN=example.test</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">IPA_REALM=EXAMPLE.TEST</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">NO_REDIRECT=true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;5553:53/udp&#34;</span><span class="w">        </span><span class="c"># DNS (UDP)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;5553:53&#34;</span><span class="w">            </span><span class="c"># DNS (TCP)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;1088:88/udp&#34;</span><span class="w">        </span><span class="c"># Kerberos (UDP)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;1088:88&#34;</span><span class="w">            </span><span class="c"># Kerberos (TCP)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;3389:389&#34;</span><span class="w">           </span><span class="c"># LDAP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;6636:636&#34;</span><span class="w">           </span><span class="c"># LDAPS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;4464:464/udp&#34;</span><span class="w">       </span><span class="c"># Kerberos Change/Set password (UDP)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;4464:464&#34;</span><span class="w">           </span><span class="c"># Kerberos Change/Set password (TCP)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;7389:7389&#34;</span><span class="w">          </span><span class="c"># Directory Server Port</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;9443:9443&#34;</span><span class="w">          </span><span class="c"># Web UI</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8080:80&#34;</span><span class="w">            </span><span class="c"># HTTP</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;4343:443&#34;</span><span class="w">           </span><span class="c"># HTTPS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">/home/igor/.docker/freeipa/data:/data:Z</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span></code></pre></div><h3 id="4-добавление-записи-в-etchosts">4. Добавление записи в <code>/etc/hosts</code></h3>
+<p>Добавьте следующую строку в ваш файл <code>/etc/hosts</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">127.0.0.1 ipa.example.test
+</span></span></code></pre></div><h3 id="5-настройка-перенаправления-портов">5. Настройка перенаправления портов</h3>
+<p>Теперь настроим перенаправление портов. Из-за ограничений rootless режима Podman сразу указать системные порты невозможно, поэтому используем следующие правила:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p tcp --dport <span class="m">443</span> -j REDIRECT --to-port <span class="m">4343</span>
+</span></span><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p tcp --dport <span class="m">80</span> -j REDIRECT --to-port <span class="m">8080</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># DNS</span>
+</span></span><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p tcp --dport <span class="m">53</span> -j REDIRECT --to-port <span class="m">5553</span>
+</span></span><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p udp --dport <span class="m">53</span> -j REDIRECT --to-port <span class="m">5553</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Kerberos</span>
+</span></span><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p tcp --dport <span class="m">88</span> -j REDIRECT --to-port <span class="m">1088</span>
+</span></span><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p udp --dport <span class="m">88</span> -j REDIRECT --to-port <span class="m">1088</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># LDAP</span>
+</span></span><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p tcp --dport <span class="m">389</span> -j REDIRECT --to-port <span class="m">3389</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># LDAPS</span>
+</span></span><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p tcp --dport <span class="m">636</span> -j REDIRECT --to-port <span class="m">6636</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Kerberos password change</span>
+</span></span><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p tcp --dport <span class="m">464</span> -j REDIRECT --to-port <span class="m">4464</span>
+</span></span><span class="line"><span class="cl">sudo iptables -t nat -A OUTPUT -d 127.0.0.1 -p udp --dport <span class="m">464</span> -j REDIRECT --to-port <span class="m">4464</span>
+</span></span></code></pre></div><h3 id="6-доступ-к-веб-интерфейсу">6. Доступ к веб-интерфейсу</h3>
+<p>После выполнения всех шагов вы можете зайти на веб-интерфейс FreeIPA по адресу:</p>
+<p><a class="link" href="https://ipa.example.test/ipa/ui/#/e/group/search"  target="_blank" rel="noopener"
+    >https://ipa.example.test/ipa/ui/#/e/group/search</a></p>
+<p>Voilà!</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.css"integrity="sha384-RZU/ijkSsFbcmivfdRBQDtwuwVqK7GMOw6IMvKyeWL2K5UAlyp6WonmB8m7Jd0Hn"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/katex.min.js"integrity="sha384-pK1WpvzWVBQiP0/GjnvRxV4mOb0oxFuyRxJlk6vVw146n3egcN5C925NCP7a7BY8"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.13.13/dist/contrib/auto-render.min.js"integrity="sha384-vZTG03m&#43;2yp6N6BNi5iM4rW4oIwk5DfcNdFfxkk9ZWpDriOkXX8voJBFrAO7MpVl"crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ]
+        });})
+</script>
+    
+</article>
+
+    
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Также рекомендуем</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="">
+    <a href="/p/davmail-as-systemd-service/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">DavMail как служба systemd</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/tftp-server-example/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TFTP-сервер напримере прошивки TPLink Archer C6</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="">
+    <a href="/p/youtube-tricks/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">YouTube Tricks - Как пользоваться YouTube с минимумом потерь</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-ingvarlistard-github-io" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2021 - 
+        
+        2025 Handy Code
+    </section>
+    
+    <section class="powerby">
+        Создано при помощи <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Тема <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.6.0">Stack</a></b>, дизайн <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+
+            </main>
+    
+        <aside class="sidebar right-sidebar sticky">
+            <section class="widget archives">
+                <div class="widget-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+                </div>
+                <h2 class="widget-title section-title">Содержание</h2>
+                
+                <div class="widget--toc">
+                    <nav id="TableOfContents">
+  <ol>
+    <li><a href="#шаги-по-настройке">Шаги по настройке</a>
+      <ol>
+        <li><a href="#1-запуск-команды-для-настройки-образа">1. Запуск команды для настройки образа</a></li>
+        <li><a href="#2-прохождение-процесса-настройки-сервера">2. Прохождение процесса настройки сервера</a></li>
+        <li><a href="#3-остановка-процесса-и-подготовка-docker-compose-файла">3. Остановка процесса и подготовка Docker Compose файла</a>
+          <ol>
+            <li><a href="#мой-docker-composeyml-файл">Мой <code>docker-compose.yml</code> файл</a></li>
+          </ol>
+        </li>
+        <li><a href="#4-добавление-записи-в-etchosts">4. Добавление записи в <code>/etc/hosts</code></a></li>
+        <li><a href="#5-настройка-перенаправления-портов">5. Настройка перенаправления портов</a></li>
+        <li><a href="#6-доступ-к-веб-интерфейсу">6. Доступ к веб-интерфейсу</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+                </div>
+            </section>
+        </aside>
+    
+
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
